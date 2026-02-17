@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Check-in Flow Step 1</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7bb979",
+                        "background-light": "#F8F7F5",
+                        "background-dark": "#161c16",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<div class="flex items-center bg-transparent px-4 py-4 justify-between">
+<div class="text-zinc-800 dark:text-zinc-100 flex size-10 shrink-0 items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined">close</span>
+</div>
+<h2 class="text-zinc-800 dark:text-zinc-100 text-lg font-semibold leading-tight tracking-tight flex-1 text-center pr-10">Daily Check-in</h2>
+</div>
+<!-- Progress Bar Section -->
+<div class="flex flex-col gap-3 px-6 py-2">
+<div class="flex justify-between items-center mb-1">
+<p class="text-zinc-800 dark:text-zinc-200 text-sm font-medium">Step 1 of 5</p>
+<p class="text-zinc-500 dark:text-zinc-400 text-xs font-normal">20% Complete</p>
+</div>
+<div class="h-2 w-full rounded-full bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500" style="width: 20%;"></div>
+</div>
+</div>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col items-center justify-center px-8 pb-32">
+<!-- Friendly Illustration -->
+<div class="w-full flex justify-center mb-10">
+<div class="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden">
+<div class="w-24 h-24 bg-cover bg-center" data-alt="Illustration of a friendly person waving hello" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAz5pXsXdWoToTMTgbCmPE2s0jEt8tfFqFXHIY08SmgrIkUViiTX4NYboneN0KNCPjIejn8J_FAvcyZNAKPzanpBejAQWwaihcBQZpZO59p_0yqxVqaLq_cIIigOi2-Mls8BZjqn11mOLYahmUYDxm4Uy56l-i-evrWUV89pF7XsDlcu-Tnpz0Ctys8uh4VG_TVDfYa2qerVf5Kbh6tH9xi5xCYwBAV0JixAp89qaNnpffcHzXnUaVhrRYKXite9F6qlPn4zrDW_Fu1");'>
+</div>
+</div>
+</div>
+<!-- Headline -->
+<h1 class="text-zinc-900 dark:text-white text-[24px] font-bold leading-tight text-center mb-4">
+            How are you feeling today?
+        </h1>
+<!-- Body Text -->
+<p class="text-zinc-600 dark:text-zinc-400 text-base font-normal leading-relaxed text-center max-w-xs">
+            Robert, this check-in helps us track your recovery. It takes about 2 minutes.
+        </p>
+</div>
+<!-- Bottom Action Button -->
+<div class="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background-light dark:from-background-dark via-background-light/95 dark:via-background-dark/95 to-transparent">
+<button class="w-full h-14 bg-primary hover:bg-opacity-90 active:scale-[0.98] transition-all text-white text-lg font-semibold rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
+            Start Check-in
+        </button>
+<!-- iOS Home Indicator Spacing -->
+<div class="h-4"></div>
+</div>
+</body></html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Check-in Flow Step 4: Symptom Checklist</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#7bb979",
+              "background-light": "#F8F7F5",
+              "background-dark": "#161c16",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+.checkbox-custom:checked {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDGqjcbZOKMSGHHI7Hf44H8xwOS43smsgs2X_NNbkBLRY5pbdnj_fh8LItJlC9-duHcxDAOWsQg_Miy7FFdi-iJPM7ZQMNU99zO5zuuXYRRF9DutyfFgTHFEKGH6qnWvSuIL-Uo_hSvpbj8tYVtm35mD_KwlAGiuZ0Wmm-doui8V0MzVSk0Wzj5RRIRTzkjJ0i146GojTRgzwF3oS35bdpENXqyEi4Fy-xDAeRdm_FX3g1zM_yVH2CSSFgTI6eYfZefvXQnn5Crmh3F)
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col items-center justify-start text-[#121712] dark:text-white">
+<!-- Main Container (Phone Form Factor) -->
+<div class="relative w-full max-w-[430px] min-h-screen flex flex-col bg-background-light dark:bg-background-dark">
+<!-- TopAppBar -->
+<header class="flex items-center px-4 py-4">
+<button class="flex items-center justify-center size-10 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</button>
+<div class="flex-1"></div>
+</header>
+<!-- Progress Bar Section -->
+<div class="px-6 py-2">
+<div class="flex justify-between items-end mb-2">
+<p class="text-sm font-medium text-[#121712]/60 dark:text-white/60 uppercase tracking-wider">Step 4 of 5</p>
+<p class="text-sm font-bold text-primary">80%</p>
+</div>
+<div class="h-1.5 w-full bg-[#E5E3DF] dark:bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500" style="width: 80%;"></div>
+</div>
+</div>
+<!-- Headline Text -->
+<div class="px-6 pt-8 pb-6">
+<h1 class="text-[20px] font-bold leading-tight tracking-tight">Are you experiencing any of these?</h1>
+<p class="text-[#121712]/60 dark:text-white/60 text-sm mt-2">Select all that apply to your current condition.</p>
+</div>
+<!-- Checklists (Symptom List) -->
+<div class="px-6 flex flex-col gap-3 flex-1 overflow-y-auto pb-24">
+<!-- Symptom Card 1 -->
+<label class="flex items-center justify-between h-[56px] px-4 bg-white dark:bg-white/5 rounded-xl border border-[#E5E3DF] dark:border-white/10 active:scale-[0.98] transition-all cursor-pointer">
+<span class="text-base font-medium">Shortness of breath</span>
+<input class="checkbox-custom h-6 w-6 rounded border-[#d7e0d7] border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0 focus:border-[#d7e0d7] focus:outline-none" type="checkbox"/>
+</label>
+<!-- Symptom Card 2 -->
+<label class="flex items-center justify-between h-[56px] px-4 bg-white dark:bg-white/5 rounded-xl border border-[#E5E3DF] dark:border-white/10 active:scale-[0.98] transition-all cursor-pointer">
+<span class="text-base font-medium">Dizziness</span>
+<input class="checkbox-custom h-6 w-6 rounded border-[#d7e0d7] border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0 focus:border-[#d7e0d7] focus:outline-none" type="checkbox"/>
+</label>
+<!-- Symptom Card 3 -->
+<label class="flex items-center justify-between h-[56px] px-4 bg-white dark:bg-white/5 rounded-xl border border-[#E5E3DF] dark:border-white/10 active:scale-[0.98] transition-all cursor-pointer">
+<span class="text-base font-medium">Nausea</span>
+<input class="checkbox-custom h-6 w-6 rounded border-[#d7e0d7] border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0 focus:border-[#d7e0d7] focus:outline-none" type="checkbox"/>
+</label>
+<!-- Symptom Card 4 -->
+<label class="flex items-center justify-between h-[56px] px-4 bg-white dark:bg-white/5 rounded-xl border border-[#E5E3DF] dark:border-white/10 active:scale-[0.98] transition-all cursor-pointer">
+<span class="text-base font-medium">Swelling in legs</span>
+<input class="checkbox-custom h-6 w-6 rounded border-[#d7e0d7] border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0 focus:border-[#d7e0d7] focus:outline-none" type="checkbox"/>
+</label>
+<!-- Symptom Card 5 -->
+<label class="flex items-center justify-between h-[56px] px-4 bg-white dark:bg-white/5 rounded-xl border border-[#E5E3DF] dark:border-white/10 active:scale-[0.98] transition-all cursor-pointer">
+<span class="text-base font-medium">Chest discomfort</span>
+<input class="checkbox-custom h-6 w-6 rounded border-[#d7e0d7] border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0 focus:border-[#d7e0d7] focus:outline-none" type="checkbox"/>
+</label>
+<!-- Symptom Card 6 (Selected State) -->
+<label class="flex items-center justify-between h-[56px] px-4 bg-white dark:bg-white/10 rounded-xl border-2 border-primary active:scale-[0.98] transition-all cursor-pointer shadow-sm">
+<span class="text-base font-semibold text-[#121712] dark:text-white">None of these</span>
+<input checked="" class="checkbox-custom h-6 w-6 rounded border-primary border-2 bg-primary text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0 focus:border-primary focus:outline-none" type="checkbox"/>
+</label>
+</div>
+<!-- SingleButton (Fixed Bottom) -->
+<div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] p-6 bg-gradient-to-t from-background-light dark:from-background-dark via-background-light/95 dark:via-background-dark/95 to-transparent">
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-5 bg-primary text-white text-[18px] font-bold leading-normal tracking-[0.015em] shadow-lg active:scale-[0.97] transition-transform">
+<span class="truncate">Next</span>
+</button>
+<!-- iOS Home Indicator Spacing -->
+<div class="h-4"></div>
+</div>
+</div>
+</body></html>

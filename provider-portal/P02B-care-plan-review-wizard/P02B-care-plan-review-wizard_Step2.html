@@ -1,0 +1,964 @@
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Care Plan Review Wizard - FollowCare</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5DADE2",
+                        "brand-blue": "#1E40AF",
+                        "background-light": "#f6f7f8",
+                        "background-sidebar": "#F8F8F8",
+                        "active-bg": "#E8F4F8",
+                        "active-text": "#5DADE2",
+                        "sidebar-border": "#E5E7EB",
+                        "safety-amber": "#FEF3C7",
+                        "safety-text": "#92400E",
+                        "badge-blue": "#E3F2FD",
+                        "badge-blue-text": "#1E88E5",
+                        "badge-purple": "#F3E8FF",
+                        "badge-purple-text": "#A855F7",
+                        "badge-green": "#E8F5E9",
+                        "badge-green-text": "#43A047",
+                        "badge-gold": "#FFF9E6",
+                        "badge-gold-text": "#D68910",
+                        "badge-red": "#FEE2E2",
+                        "badge-red-text": "#EF4444",
+                        "badge-gray": "#F5F5F5",
+                        "badge-gray-text": "#757575",
+                        "risk-purple-bg": "#F3E8FF",
+                        "risk-purple-text": "#A855F7",
+                        "risk-orange-bg": "#FFF9E6",
+                        "risk-orange-text": "#D68910",
+                        "text-main": "#36454F",
+                        "text-secondary": "#6B7280",
+                        "phase-1": "#EF5350",
+                        "phase-2": "#C06C84",
+                        "phase-3": "#A078B5",
+                        "phase-4": "#7986CB",
+                        "phase-5": "#4FC3F7"
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body { font-family: 'Manrope', sans-serif; }
+            .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        }
+        .sidebar-item { height: 44px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; transition: all 0.2s; overflow: hidden; white-space: nowrap; }
+        .sidebar-item-active { 
+            background-color: #E8F4F8; 
+            color: #5DADE2; 
+            border-left: 3px solid #5DADE2; 
+        }
+        .sidebar-item-active span { font-weight: 700; }
+        .accordion-header { height: 64px; }
+        #sidebar-toggle { display: none; }
+        #sidebar-toggle:checked ~ aside { width: 72px; }
+        #sidebar-toggle:checked ~ aside .sidebar-label,
+        #sidebar-toggle:checked ~ aside .sidebar-logo-text,
+        #sidebar-toggle:checked ~ aside .profile-info { display: none; }
+        #sidebar-toggle:checked ~ aside .sidebar-header { justify-content: center; padding: 24px 0; }
+        #sidebar-toggle:checked ~ aside .sidebar-item { justify-content: center; padding: 12px 0; border-left-width: 0; }
+        #sidebar-toggle:checked ~ aside .sidebar-item-active { border-right: 3px solid #5DADE2; }
+        #sidebar-toggle:checked ~ aside .footer-profile { justify-content: center; padding: 16px 0; }
+        .accordion-header:hover .chevron-icon { color: #5DADE2; }
+        .ai-modified-row { border-left: 4px solid #A855F7 !important; }
+        details summary::-webkit-details-marker { display:none; }
+        details summary { list-style: none; outline: none; }
+        details[open] .expand-icon::before { content: "expand_less"; }
+        details:not([open]) .expand-icon::before { content: "expand_more"; }
+        .task-table tr:nth-child(even):not(.ai-modified-row) { background-color: #FAFAFA; }
+        .task-table tr:nth-child(odd):not(.ai-modified-row) { background-color: #FFFFFF; }
+        .task-table tr.ai-modified-row:nth-child(even) { background-color: #FAFAFA; }
+        .task-table tr.ai-modified-row:nth-child(odd) { background-color: #FFFFFF; }
+        .badge-new { background-color: #F3E8FF; color: #A855F7; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; }
+        .badge-modified { background-color: #FFF9E6; color: #D68910; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; }
+        .badge-critical { background-color: #FEE2E2; color: #EF4444; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; }
+        .badge-category { background-color: #F1F5F9; color: #6B7280; font-size: 12px; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+        .badge-source-ai { background-color: #F3E8FF; color: #A855F7; font-size: 12px; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+        .badge-source-base { background-color: #F8F8F8; color: #6B7280; font-size: 12px; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+        .phase-chip { color: white; font-size: 12px; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+    </style>
+</head>
+<body class="bg-background-light text-[#0f161a] overflow-hidden">
+<div class="flex h-screen overflow-hidden">
+<input id="sidebar-toggle" type="checkbox"/>
+<aside class="w-[256px] flex flex-col bg-background-sidebar border-r border-sidebar-border shrink-0 transition-all duration-300">
+<div class="p-[24px] flex items-center justify-between sidebar-header">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-brand-blue rounded-lg flex items-center justify-center text-white shrink-0">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</div>
+<h2 class="text-brand-blue text-xl font-extrabold tracking-tight sidebar-logo-text">FollowCare</h2>
+</div>
+<label class="cursor-pointer hover:bg-gray-200 p-1 rounded-md transition-colors" for="sidebar-toggle">
+<span class="material-symbols-outlined text-text-secondary">menu_open</span>
+</label>
+</div>
+<nav class="flex-1 mt-2">
+<a class="sidebar-item text-text-main hover:bg-gray-100" href="#"><span class="material-symbols-outlined">dashboard</span><span class="text-sm font-medium sidebar-label">Dashboard</span></a>
+<a class="sidebar-item text-text-main hover:bg-gray-100" href="#"><span class="material-symbols-outlined">group</span><span class="text-sm font-medium sidebar-label">Patients</span></a>
+<a class="sidebar-item text-text-main hover:bg-gray-100" href="#"><span class="material-symbols-outlined">notifications</span><span class="text-sm font-medium sidebar-label">Alerts</span></a>
+<a class="sidebar-item text-text-main hover:bg-gray-100" href="#"><span class="material-symbols-outlined">checklist</span><span class="text-sm font-medium sidebar-label">Checkpoints</span></a>
+<a class="sidebar-item sidebar-item-active" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">description</span><span class="text-sm sidebar-label">Care Plans</span></a>
+<a class="sidebar-item text-text-main hover:bg-gray-100" href="#"><span class="material-symbols-outlined">settings</span><span class="text-sm font-medium sidebar-label">Settings</span></a>
+</nav>
+<div class="p-4 border-t border-sidebar-border footer-profile">
+<div class="flex items-center gap-3">
+<div class="size-[32px] rounded-full bg-cover bg-center ring-1 ring-gray-200 shrink-0" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCzlg9Ni_edzzmOj-SKlhA_AgtVVH-P0GT6zLmn_BDMP-8xaQPtKkFqYyqhGfxIAyXFa16kPblQL059f8Ak-PUbPptj0ImXLoPbdJ-p1WzQ3PsL8lagqZ13RUbHJlZcL--_97ZkZw3bPnTzibhtd0fEm-h8vU7JKIN8VBaEYF-HbaKBgS3enQmRFDtH52-_i2eayWZECAhz1EgQ8sTffPVy8EKtB82EhP8aX8shWhZdD1YSoarj8fXIz-OaVHUR1IA5GopGuGavgZk')"></div>
+<div class="flex flex-col min-w-0 profile-info">
+<span class="text-[14px] font-medium text-text-main truncate">Dr. Sarah Chen</span>
+<span class="text-[12px] text-text-secondary">Physician</span>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-w-0 bg-white overflow-hidden">
+<header class="h-16 border-b border-[#E5E7EB] flex items-center justify-between px-6 bg-[#FFFFFF] shrink-0">
+<div class="flex flex-col">
+<nav class="flex items-center gap-1 text-[14px] text-text-secondary leading-tight">
+<a class="text-primary hover:underline" href="#">Care Plans</a>
+<span class="mx-0.5">/</span>
+<a class="text-primary hover:underline" href="#">Robert Martinez</a>
+<span class="mx-0.5">/</span>
+<span>Review</span>
+</nav>
+<h1 class="text-[24px] font-bold text-text-main leading-tight">Review Care Plan</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative flex items-center bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#9CA3AF]">search</span>
+<span class="text-[11px] font-bold text-gray-400 bg-white px-1 border border-gray-200 rounded">⌘K</span>
+</div>
+<span class="material-symbols-outlined text-[20px] text-[#9CA3AF] cursor-pointer hover:text-text-main transition-colors">auto_awesome_motion</span>
+<div class="flex items-center gap-2 text-[14px] text-text-secondary">
+<span>Jan 17, 2026 10:32 AM</span>
+</div>
+<button class="relative p-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px] text-[#6B7280]">notifications</span>
+<span class="absolute top-1 right-1 size-2 bg-red-500 rounded-full border-2 border-white"></span>
+</button>
+</div>
+</header>
+<div class="bg-safety-amber px-8 py-2 flex items-center gap-3 shrink-0 border-b border-[#FDE68A]">
+<span class="material-symbols-outlined text-safety-text text-xl">warning</span>
+<p class="text-safety-text text-sm font-bold uppercase tracking-tight">
+                    ⚠️ ROBERT MARTINEZ (MRN: 98765432) - 60M | <span class="text-red-700">Allergies: Latex, Codeine</span>
+</p>
+</div>
+<div class="flex-1 flex overflow-hidden">
+<aside class="w-[250px] bg-[#FFFFFF] border-r border-[#E5E7EB] overflow-y-auto p-5 flex flex-col gap-6 shrink-0">
+<div class="space-y-1">
+<h2 class="text-[18px] font-bold text-text-main">Robert Martinez, 60M</h2>
+<div class="space-y-2">
+<div class="flex flex-col">
+<span class="text-[14px] font-semibold text-text-main">CABG Surgery (3-vessel)</span>
+<span class="text-[13px] text-text-secondary">Surgery Date: Jan 11, 2026</span>
+</div>
+<div class="inline-flex items-center px-2.5 py-0.5 bg-badge-blue text-badge-blue-text text-[11px] font-bold rounded-full border border-blue-200">
+                                Post-Op Day 2
+                            </div>
+</div>
+</div>
+<hr class="border-[#E5E7EB]"/>
+<div class="space-y-3">
+<p class="text-[12px] font-bold text-text-secondary uppercase tracking-wider">RISK FACTORS</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2.5 py-1 bg-risk-purple-bg text-risk-purple-text text-[11px] font-bold rounded">Diabetes Type 2</span>
+<span class="px-2.5 py-1 bg-risk-purple-bg text-risk-purple-text text-[11px] font-bold rounded">Obesity BMI 32</span>
+<span class="px-2.5 py-1 bg-risk-orange-bg text-risk-orange-text text-[11px] font-bold rounded">Age 60</span>
+<span class="px-2.5 py-1 bg-risk-orange-bg text-risk-orange-text text-[11px] font-bold rounded">Metabolic Syndrome</span>
+</div>
+</div>
+<hr class="border-[#E5E7EB]"/>
+<div class="space-y-1.5">
+<p class="text-[12px] font-bold text-text-secondary uppercase tracking-wider">TEMPLATE</p>
+<div class="flex flex-col">
+<span class="text-[14px] font-medium text-text-main">CABG_HIGH_RISK</span>
+<span class="text-[12px] text-text-secondary">180 days</span>
+</div>
+</div>
+<hr class="border-[#E5E7EB]"/>
+<div class="space-y-3">
+<p class="text-[12px] font-bold text-text-secondary uppercase tracking-wider">QUICK LINKS</p>
+<div class="flex flex-col gap-2">
+<a class="text-[14px] font-medium text-[#5DADE2] hover:underline" href="#">Full Patient Summary</a>
+<a class="text-[14px] font-medium text-[#5DADE2] hover:underline" href="#">Open Patient Chart</a>
+<a class="text-[14px] font-medium text-[#5DADE2] hover:underline" href="#">Care Plan History</a>
+</div>
+</div>
+</aside>
+<div class="flex-1 overflow-y-auto bg-white">
+<div class="h-[80px] py-[20px] flex items-center justify-center max-w-5xl mx-auto">
+<div class="flex items-center w-full max-w-2xl relative">
+<div class="absolute top-[16px] left-[calc(16.66%+16px)] right-[calc(50%+16px)] h-[2px] bg-[#10B981]"></div>
+<div class="absolute top-[16px] left-[calc(50%+16px)] right-[calc(16.66%+16px)] h-[2px] bg-[#E5E7EB]"></div>
+<div class="flex flex-col items-center flex-1 relative z-10">
+<div class="size-[32px] rounded-full bg-[#10B981] text-white flex items-center justify-center mb-1 shadow-sm">
+<span class="material-symbols-outlined text-[18px] font-bold">check</span>
+</div>
+<span class="text-[14px] font-medium text-[#10B981]">Patient Overview</span>
+</div>
+<div class="flex flex-col items-center flex-1 relative z-10">
+<div class="size-[32px] rounded-full bg-[#5DADE2] text-white flex items-center justify-center mb-1 shadow-sm">
+<span class="text-[14px] font-medium">2</span>
+</div>
+<span class="text-[14px] font-medium text-[#5DADE2]">Component Review</span>
+</div>
+<div class="flex flex-col items-center flex-1 relative z-10">
+<div class="size-[32px] rounded-full bg-[#F1F5F9] text-[#6B7280] flex items-center justify-center mb-1">
+<span class="text-[14px] font-medium">3</span>
+</div>
+<span class="text-[14px] font-medium text-[#6B7280]">Final Approval</span>
+</div>
+</div>
+</div>
+<div class="max-w-5xl mx-auto p-8 pt-0 space-y-4 pb-20">
+<details class="border border-sidebar-border rounded-lg bg-white overflow-hidden shadow-sm" open="">
+<summary class="accordion-header px-6 flex items-center justify-between cursor-pointer hover:bg-gray-50 border-b border-sidebar-border transition-colors">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#7986CB]">calendar_month</span>
+<div class="flex flex-col">
+<h3 class="font-bold text-text-main">Recovery Phases</h3>
+<p class="text-[14px] font-bold text-[#D68910]">Extended from standard 90 days due to diabetes + obesity risk factors</p>
+</div>
+<div class="flex gap-2">
+<span class="px-2 py-0.5 bg-badge-blue text-badge-blue-text text-[11px] font-bold rounded">5 phases</span>
+<span class="px-2 py-0.5 bg-badge-gray text-badge-gray-text text-[11px] font-bold rounded">180 days total</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-secondary expand-icon"></span>
+</summary>
+<div class="p-6 space-y-8">
+<div class="space-y-2">
+<div class="h-[60px] w-full rounded-[8px] flex overflow-hidden">
+<div class="bg-phase-1 h-full flex-none w-[1.6%]" title="ICU Recovery (Days 0-3)"></div>
+<div class="bg-phase-2 h-full flex-none w-[2.2%]" title="Hospital Floor (Days 3-7)"></div>
+<div class="bg-phase-3 h-full flex-none w-[11.7%]" title="Early Home (Weeks 1-4)"></div>
+<div class="bg-phase-4 h-full flex-none w-[31.1%]" title="Cardiac Rehab (Weeks 4-12)"></div>
+<div class="bg-phase-5 h-full flex-1" title="Long-Term Maintenance (Months 3-6)"></div>
+</div>
+<div class="relative h-6 text-[11px] font-bold text-text-secondary">
+<span class="absolute left-0">Day 0</span>
+<span class="absolute left-[1.6%] -translate-x-1/2">3</span>
+<span class="absolute left-[3.8%] -translate-x-1/2">7</span>
+<span class="absolute left-[15.5%] -translate-x-1/2">28</span>
+<span class="absolute left-[46.6%] -translate-x-1/2">84</span>
+<span class="absolute right-0">180</span>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="border border-[#E5E7EB] border-l-4 border-l-phase-1 rounded-[8px] p-4 bg-[#FAFAFA] flex items-start justify-between">
+<div class="flex flex-col gap-1">
+<span class="text-[10px] font-bold text-text-secondary uppercase">PHASE 1</span>
+<h4 class="font-bold text-[16px] text-[#36454F]">ICU Recovery</h4>
+<p class="text-[14px] text-[#6B7280]">Hemodynamic stability, extubation, glycemic control, arrhythmia prevention</p>
+</div>
+<div class="text-[12px] font-bold text-text-main bg-white px-3 py-1.5 rounded-md border border-gray-100 shrink-0">Days 0-3</div>
+</div>
+<div class="border border-[#E5E7EB] border-l-4 border-l-phase-2 rounded-[8px] p-4 bg-[#FAFAFA] flex items-start justify-between">
+<div class="flex flex-col gap-1">
+<span class="text-[10px] font-bold text-text-secondary uppercase">PHASE 2</span>
+<h4 class="font-bold text-[16px] text-[#36454F]">Hospital Floor Recovery</h4>
+<p class="text-[14px] text-[#6B7280]">Mobilization, sternal precautions, diabetes management, discharge prep</p>
+</div>
+<div class="text-[12px] font-bold text-text-main bg-white px-3 py-1.5 rounded-md border border-gray-100 shrink-0">Days 3-7</div>
+</div>
+<div class="border border-[#E5E7EB] border-l-4 border-l-phase-3 rounded-[8px] p-4 bg-[#FAFAFA] flex items-start justify-between">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-3">
+<span class="text-[10px] font-bold text-text-secondary uppercase">PHASE 3</span>
+<span class="px-1.5 py-0.5 bg-badge-purple text-badge-purple-text text-[10px] font-bold rounded">ENHANCED MONITORING</span>
+</div>
+<h4 class="font-bold text-[16px] text-[#36454F]">Early Home Recovery</h4>
+<p class="text-[14px] text-[#6B7280]">Sternal healing, wound surveillance, cardiac rehab enrollment</p>
+</div>
+<div class="text-[12px] font-bold text-text-main bg-white px-3 py-1.5 rounded-md border border-gray-100 shrink-0">Weeks 1-4</div>
+</div>
+<div class="border border-[#E5E7EB] border-l-4 border-l-phase-4 rounded-[8px] p-4 bg-[#FAFAFA] flex items-start justify-between">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-3">
+<span class="text-[10px] font-bold text-text-secondary uppercase">PHASE 4</span>
+<span class="px-1.5 py-0.5 bg-badge-gold text-badge-gold-text text-[10px] font-bold rounded">EXTENDED +30%</span>
+</div>
+<h4 class="font-bold text-[16px] text-[#36454F]">Cardiac Rehabilitation</h4>
+<p class="text-[14px] text-[#6B7280]">Supervised exercise, risk factor modification, return to work prep</p>
+</div>
+<div class="text-[12px] font-bold text-text-main bg-white px-3 py-1.5 rounded-md border border-gray-100 shrink-0">Weeks 4-12</div>
+</div>
+<div class="border border-[#E5E7EB] border-l-4 border-l-phase-5 rounded-[8px] p-4 bg-[#FAFAFA] flex items-start justify-between">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-3">
+<span class="text-[10px] font-bold text-text-secondary uppercase">PHASE 5</span>
+<span class="px-1.5 py-0.5 bg-badge-blue text-badge-blue-text text-[10px] font-bold rounded">EXTENDED</span>
+</div>
+<h4 class="font-bold text-[16px] text-[#36454F]">Long-Term Maintenance</h4>
+<p class="text-[14px] text-[#6B7280]">Secondary prevention, full activity, HbA1c optimization, weight management</p>
+</div>
+<div class="text-[12px] font-bold text-text-main bg-white px-3 py-1.5 rounded-md border border-gray-100 shrink-0">Months 3-6</div>
+</div>
+</div>
+</div>
+</details>
+<details class="border border-sidebar-border rounded-lg bg-white overflow-hidden shadow-sm" open="">
+<summary class="accordion-header px-6 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors border-b border-sidebar-border">
+<div class="flex items-center gap-4 min-w-0">
+<span class="material-symbols-outlined text-primary">assignment</span>
+<div class="flex flex-col">
+<h3 class="font-bold text-text-main shrink-0">Tasks</h3>
+</div>
+<div class="flex gap-2 shrink-0">
+<span class="px-2 py-0.5 bg-badge-blue text-badge-blue-text text-[11px] font-bold rounded">14 total</span>
+<span class="px-2 py-0.5 bg-badge-purple text-badge-purple-text text-[11px] font-bold rounded">AI Modified</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-secondary expand-icon"></span>
+</summary>
+<div class="p-0 overflow-x-auto">
+<table class="w-full text-left border-collapse task-table">
+<thead>
+<tr class="bg-[#F9FAFB] border-b border-sidebar-border">
+<th class="py-3 px-6 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider w-[35%]">Task Name</th>
+<th class="py-3 px-4 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider w-[12%]">Category</th>
+<th class="py-3 px-4 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider w-[18%]">Frequency</th>
+<th class="py-3 px-4 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider w-[15%]">Phases</th>
+<th class="py-3 px-4 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider w-[15%]">Source</th>
+<th class="py-3 px-4 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider w-[5%] text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="text-[14px]">
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Aspirin 81mg</td>
+<td class="py-4 px-4"><span class="badge-category">Medication</span></td>
+<td class="py-4 px-4 text-text-main">Daily</td>
+<td class="py-4 px-4"><div class="flex flex-wrap gap-1"><span class="phase-chip bg-phase-1">P1</span><span class="phase-chip bg-phase-2">P2</span><span class="phase-chip bg-phase-3">P3</span><span class="phase-chip bg-phase-4">P4</span><span class="phase-chip bg-phase-5">P5</span></div></td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-red-500">delete</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Atorvastatin 40mg</td>
+<td class="py-4 px-4"><span class="badge-category">Medication</span></td>
+<td class="py-4 px-4 text-text-main">Daily</td>
+<td class="py-4 px-4"><div class="flex flex-wrap gap-1"><span class="phase-chip bg-phase-1">P1</span><span class="phase-chip bg-phase-2">P2</span><span class="phase-chip bg-phase-3">P3</span><span class="phase-chip bg-phase-4">P4</span><span class="phase-chip bg-phase-5">P5</span></div></td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-red-500">delete</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Metoprolol 25mg</td>
+<td class="py-4 px-4"><span class="badge-category">Medication</span></td>
+<td class="py-4 px-4 text-text-main">BID (2x Daily)</td>
+<td class="py-4 px-4"><div class="flex flex-wrap gap-1"><span class="phase-chip bg-phase-1">P1</span><span class="phase-chip bg-phase-2">P2</span><span class="phase-chip bg-phase-3">P3</span><span class="phase-chip bg-phase-4">P4</span><span class="phase-chip bg-phase-5">P5</span></div></td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-red-500">delete</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Pain Meds (PRN)</td>
+<td class="py-4 px-4"><span class="badge-category">Medication</span></td>
+<td class="py-4 px-4 text-text-main">As needed</td>
+<td class="py-4 px-4"><div class="flex flex-wrap gap-1"><span class="phase-chip bg-phase-1">P1</span><span class="phase-chip bg-phase-2">P2</span><span class="phase-chip bg-phase-3">P3</span></div></td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-red-500">delete</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 ai-modified-row">
+<td class="py-4 px-6 font-semibold text-text-main">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span>DVT Prophylaxis</span>
+<span class="badge-modified">[MODIFIED]</span>
+<span class="badge-critical">[CRITICAL]</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4"><span class="badge-category">Safety</span></td>
+<td class="py-4 px-4 text-text-main">
+                                                Extended 6 weeks<br/>
+<span class="text-[12px] text-text-secondary line-through">(was: 4 weeks)</span>
+</td>
+<td class="py-4 px-4"><div class="flex flex-wrap gap-1"><span class="phase-chip bg-phase-1">P1</span><span class="phase-chip bg-phase-2">P2</span><span class="phase-chip bg-phase-3">P3</span></div></td>
+<td class="py-4 px-4"><span class="badge-source-ai">AI Added</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-red-500">delete</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 ai-modified-row">
+<td class="py-4 px-6 font-semibold text-text-main">
+<div class="flex items-center gap-2">
+<span>Blood Glucose Monitoring</span>
+<span class="badge-new">[NEW]</span>
+</div>
+</td>
+<td class="py-4 px-4"><span class="badge-category">Monitoring</span></td>
+<td class="py-4 px-4 text-text-main">4x daily</td>
+<td class="py-4 px-4"><div class="flex flex-wrap gap-1"><span class="phase-chip bg-phase-1">P1</span><span class="phase-chip bg-phase-2">P2</span><span class="phase-chip bg-phase-3">P3</span><span class="phase-chip bg-phase-4">P4</span></div></td>
+<td class="py-4 px-4"><span class="badge-source-ai">AI Added</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-red-500">delete</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 ai-modified-row">
+<td class="py-4 px-6 font-semibold text-text-main">
+<div class="flex items-center gap-2">
+<span>Incision Inspection</span>
+<span class="badge-modified">[MODIFIED]</span>
+</div>
+</td>
+<td class="py-4 px-4"><span class="badge-category">Wound Care</span></td>
+<td class="py-4 px-4 text-text-main">
+                                                2x daily<br/>
+<span class="text-[12px] text-text-secondary line-through">(was: daily)</span>
+</td>
+<td class="py-4 px-4"><div class="flex flex-wrap gap-1"><span class="phase-chip bg-phase-1">P1</span><span class="phase-chip bg-phase-2">P2</span><span class="phase-chip bg-phase-3">P3</span></div></td>
+<td class="py-4 px-4"><span class="badge-source-ai">AI Added</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-red-500">delete</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Wound Drainage Check</td>
+<td class="py-4 px-4"><span class="badge-category">Wound Care</span></td>
+<td class="py-4 px-4 text-text-main">Every shift</td>
+<td class="py-4 px-4"><div class="flex flex-wrap gap-1"><span class="phase-chip bg-phase-1">P1</span><span class="phase-chip bg-phase-2">P2</span></div></td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-red-500">delete</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Incentive Spirometry</td>
+<td class="py-4 px-4"><span class="badge-category">Respiratory</span></td>
+<td class="py-4 px-4 text-text-main">10x per hour</td>
+<td class="py-4 px-4"><div class="flex flex-wrap gap-1"><span class="phase-chip bg-phase-1">P1</span><span class="phase-chip bg-phase-2">P2</span><span class="phase-chip bg-phase-3">P3</span></div></td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-red-500">delete</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Ambulation</td>
+<td class="py-4 px-4"><span class="badge-category">Activity</span></td>
+<td class="py-4 px-4 text-text-main">3x Daily</td>
+<td class="py-4 px-4"><div class="flex flex-wrap gap-1"><span class="phase-chip bg-phase-2">P2</span><span class="phase-chip bg-phase-3">P3</span></div></td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-red-500">delete</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Cardiac Rehab Assessment</td>
+<td class="py-4 px-4"><span class="badge-category">Activity</span></td>
+<td class="py-4 px-4 text-text-main">Weekly</td>
+<td class="py-4 px-4"><div class="flex flex-wrap gap-1"><span class="phase-chip bg-phase-3">P3</span><span class="phase-chip bg-phase-4">P4</span></div></td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-red-500">delete</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">BP Monitoring</td>
+<td class="py-4 px-4"><span class="badge-category">Monitoring</span></td>
+<td class="py-4 px-4 text-text-main">2x Daily</td>
+<td class="py-4 px-4"><div class="flex flex-wrap gap-1"><span class="phase-chip bg-phase-1">P1</span><span class="phase-chip bg-phase-2">P2</span><span class="phase-chip bg-phase-3">P3</span><span class="phase-chip bg-phase-4">P4</span><span class="phase-chip bg-phase-5">P5</span></div></td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-red-500">delete</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Weight Monitoring</td>
+<td class="py-4 px-4"><span class="badge-category">Monitoring</span></td>
+<td class="py-4 px-4 text-text-main">Daily</td>
+<td class="py-4 px-4"><div class="flex flex-wrap gap-1"><span class="phase-chip bg-phase-1">P1</span><span class="phase-chip bg-phase-2">P2</span><span class="phase-chip bg-phase-3">P3</span><span class="phase-chip bg-phase-4">P4</span><span class="phase-chip bg-phase-5">P5</span></div></td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-red-500">delete</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Sternal Precautions Education</td>
+<td class="py-4 px-4"><span class="badge-category">Safety</span></td>
+<td class="py-4 px-4 text-text-main">Continuous (Weeks 1-8)</td>
+<td class="py-4 px-4"><div class="flex flex-wrap gap-1"><span class="phase-chip bg-phase-1">P1</span><span class="phase-chip bg-phase-2">P2</span><span class="phase-chip bg-phase-3">P3</span><span class="phase-chip bg-phase-4">P4</span></div></td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-red-500">delete</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-4 bg-white border-t border-sidebar-border">
+<button class="flex items-center gap-2 text-primary font-bold text-sm hover:bg-blue-50 px-3 py-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span> Add Task
+                                    </button>
+</div>
+</div>
+</details>
+<details class="border border-sidebar-border rounded-lg bg-white overflow-hidden shadow-sm" open="">
+<summary class="accordion-header px-6 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors border-b border-sidebar-border">
+<div class="flex items-center gap-4 min-w-0">
+<span class="material-symbols-outlined text-[#66BB6A]">sensors</span>
+<div class="flex flex-col">
+<h3 class="font-bold text-text-main shrink-0">Signals</h3>
+</div>
+<div class="flex gap-2 shrink-0">
+<span class="px-2 py-0.5 bg-badge-blue text-badge-blue-text text-[11px] font-bold rounded">10 total</span>
+<span class="px-2 py-0.5 bg-badge-green text-badge-green-text text-[11px] font-bold rounded">2 ML Personalized</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-secondary expand-icon"></span>
+</summary>
+<div class="p-0 overflow-x-auto">
+<table class="w-full text-left border-collapse task-table">
+<thead>
+<tr class="bg-[#F9FAFB] border-b border-sidebar-border">
+<th class="py-3 px-6 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider w-[30%]">Signal Name</th>
+<th class="py-3 px-4 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider w-[30%]">Expected Range</th>
+<th class="py-3 px-4 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider w-[15%]">Alert Threshold</th>
+<th class="py-3 px-4 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider w-[10%]">Frequency</th>
+<th class="py-3 px-4 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider w-[10%]">Source</th>
+<th class="py-3 px-4 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider w-[5%] text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="text-[14px]">
+<tr class="border-b border-gray-100 hover:bg-gray-50 ml-row">
+<td class="py-4 px-6 font-semibold text-text-main">
+<div class="flex items-center gap-2">
+<span>Chest Pain/Angina</span>
+<span class="badge-ml">[ML]</span>
+</div>
+</td>
+<td class="py-4 px-4 text-text-main">
+<span class="font-bold">2-6/10</span> <span class="text-[12px] text-text-secondary line-through ml-1">2-8</span>
+</td>
+<td class="py-4 px-4"><span class="threshold-alert">&gt; 6/10 intensity</span></td>
+<td class="py-4 px-4 text-text-main">As needed</td>
+<td class="py-4 px-4"><span class="badge-source-ai">AI Added</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 ml-row">
+<td class="py-4 px-6 font-semibold text-text-main">
+<div class="flex items-center gap-2">
+<span>Incisional Pain</span>
+<span class="badge-ml">[ML]</span>
+</div>
+</td>
+<td class="py-4 px-4 text-text-main">1-4/10 intensity</td>
+<td class="py-4 px-4"><span class="threshold-alert">&gt; 5/10 persistent</span></td>
+<td class="py-4 px-4 text-text-main">Daily</td>
+<td class="py-4 px-4"><span class="badge-source-ai">AI Added</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 ai-modified-row">
+<td class="py-4 px-6 font-semibold text-text-main">
+<div class="flex items-center gap-2">
+<span>Blood Glucose</span>
+<span class="badge-new">[NEW]</span>
+</div>
+</td>
+<td class="py-4 px-4 text-text-main">80-140 mg/dL</td>
+<td class="py-4 px-4"><span class="threshold-alert">&lt; 70 or &gt; 200 mg/dL</span></td>
+<td class="py-4 px-4 text-text-main">4x Daily</td>
+<td class="py-4 px-4"><span class="badge-source-ai">AI Added</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Heart Rate</td>
+<td class="py-4 px-4 text-text-main">60-90 bpm</td>
+<td class="py-4 px-4"><span class="threshold-alert">&lt; 50 or &gt; 110 bpm</span></td>
+<td class="py-4 px-4 text-text-main">2x Daily</td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Systolic Blood Pressure</td>
+<td class="py-4 px-4 text-text-main">100-140 mmHg</td>
+<td class="py-4 px-4"><span class="threshold-alert">&gt; 160 or &lt; 90 mmHg</span></td>
+<td class="py-4 px-4 text-text-main">2x Daily</td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Body Temperature</td>
+<td class="py-4 px-4 text-text-main">97.0-99.5°F</td>
+<td class="py-4 px-4"><span class="threshold-alert">&gt; 101.0°F</span></td>
+<td class="py-4 px-4 text-text-main">Daily</td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 ai-modified-row">
+<td class="py-4 px-6 font-semibold text-text-main">
+<div class="flex items-center gap-2">
+<span>Wound Appearance</span>
+<span class="badge-modified">[MODIFIED]</span>
+</div>
+</td>
+<td class="py-4 px-4 text-text-main">No redness or drainage</td>
+<td class="py-4 px-4"><span class="threshold-alert">Any purulent discharge</span></td>
+<td class="py-4 px-4 text-text-main">
+                            2x daily<br/>
+<span class="text-[12px] text-text-secondary line-through">(was: daily)</span>
+</td>
+<td class="py-4 px-4"><span class="badge-source-ai">AI Added</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Body Weight</td>
+<td class="py-4 px-4 text-text-main">+/- 2 lbs baseline</td>
+<td class="py-4 px-4"><span class="threshold-alert">&gt; 3 lbs gain/24 hrs</span></td>
+<td class="py-4 px-4 text-text-main">Daily</td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Shortness of Breath</td>
+<td class="py-4 px-4 text-text-main">None at rest</td>
+<td class="py-4 px-4"><span class="threshold-alert">New onset at rest</span></td>
+<td class="py-4 px-4 text-text-main">Daily</td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-semibold text-text-main">Lower Extremity Edema</td>
+<td class="py-4 px-4 text-text-main">Trace or less</td>
+<td class="py-4 px-4"><span class="threshold-alert">2+ pitting or unilateral</span></td>
+<td class="py-4 px-4 text-text-main">Daily</td>
+<td class="py-4 px-4"><span class="badge-source-base">Base Template</span></td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">info</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-4 bg-white border-t border-sidebar-border">
+<button class="flex items-center gap-2 text-primary font-bold text-sm hover:bg-blue-50 px-3 py-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span> Add Signal
+                </button>
+</div>
+</div>
+</details>
+<details class="border border-sidebar-border rounded-lg bg-white overflow-hidden shadow-sm">
+<summary class="accordion-header px-6 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors">
+<div class="flex items-center gap-4 min-w-0">
+<span class="material-symbols-outlined text-[#4FC3F7]">fact_check</span>
+<div class="flex flex-col">
+<h3 class="font-bold text-text-main shrink-0">Checkpoints</h3>
+</div>
+<div class="flex gap-2 shrink-0">
+<span class="px-2 py-0.5 bg-badge-blue text-badge-blue-text text-[11px] font-bold rounded">11 total</span>
+<span class="px-2 py-0.5 bg-badge-purple text-badge-purple-text text-[11px] font-bold rounded">1 AI Alert</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="preview-text hidden items-center text-sm text-text-secondary italic">Discharge Check, Telehealth, Cardiology...</span>
+<span class="material-symbols-outlined text-text-secondary chevron-icon expand-icon"></span>
+</div>
+</summary>
+<div class="p-0 overflow-x-auto border-t border-sidebar-border">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-gray-50 border-b border-sidebar-border">
+<th class="py-3 px-6 text-[12px] font-bold text-text-secondary uppercase tracking-wider w-[30%]">Checkpoint Name</th>
+<th class="py-3 px-4 text-[12px] font-bold text-text-secondary uppercase tracking-wider w-[12%]">Scheduled Day</th>
+<th class="py-3 px-4 text-[12px] font-bold text-text-secondary uppercase tracking-wider w-[12%]">Type</th>
+<th class="py-3 px-4 text-[12px] font-bold text-text-secondary uppercase tracking-wider w-[28%]">Review Focus</th>
+<th class="py-3 px-4 text-[12px] font-bold text-text-secondary uppercase tracking-wider w-[13%]">Source</th>
+<th class="py-3 px-4 text-[12px] font-bold text-text-secondary uppercase tracking-wider w-[5%] text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="text-[14px]">
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-medium text-text-main">Post-Op Day 3 Discharge Check</td>
+<td class="py-4 px-4 text-text-secondary">Day 3</td>
+<td class="py-4 px-4">
+<span class="px-2 py-1 bg-[#E8F4F8] text-[#5DADE2] text-[10px] font-bold rounded uppercase">In-Person</span>
+</td>
+<td class="py-4 px-4 text-text-secondary">Sternal stability, glycemic control plan</td>
+<td class="py-4 px-4 text-text-secondary">Template</td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 ai-modified-row">
+<td class="py-4 px-6 font-medium text-text-main">Week 1 Telehealth Check</td>
+<td class="py-4 px-4 text-text-secondary">Day 7</td>
+<td class="py-4 px-4">
+<span class="px-2 py-1 bg-[#F1F5F9] text-[#6B7280] text-[10px] font-bold rounded uppercase">Telehealth</span>
+</td>
+<td class="py-4 px-4 text-text-secondary">Wound photos, weight trend review</td>
+<td class="py-4 px-4 text-badge-purple-text font-medium">AI Added</td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-medium text-text-main">Early Wound Check</td>
+<td class="py-4 px-4 text-text-secondary">Day 12</td>
+<td class="py-4 px-4">
+<span class="px-2 py-1 bg-[#E8F4F8] text-[#5DADE2] text-[10px] font-bold rounded uppercase">In-Person</span>
+</td>
+<td class="py-4 px-4 text-text-secondary">Suture removal, infection screen</td>
+<td class="py-4 px-4 text-text-secondary">Template</td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 conflict-row">
+<td class="py-4 px-6 font-medium text-text-main">
+<div class="flex items-center gap-2">
+<span>Week 2 Cardiology Follow-Up</span>
+<span class="px-1.5 py-0.5 bg-badge-gold text-badge-gold-text text-[10px] font-bold rounded uppercase">[CONFLICT]</span>
+</div>
+</td>
+<td class="py-4 px-4 text-text-secondary font-bold">Day 14</td>
+<td class="py-4 px-4">
+<span class="px-2 py-1 bg-[#E8F4F8] text-[#5DADE2] text-[10px] font-bold rounded uppercase">In-Person</span>
+</td>
+<td class="py-4 px-4 text-text-secondary">Medication titration, EKG review</td>
+<td class="py-4 px-4 text-text-secondary">Template</td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="p-0" colspan="6">
+<div class="bg-[#FFF9E6] border-y border-[#D68910] px-6 py-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#D68910]">lightbulb</span>
+<p class="text-sm font-medium text-[#92400E]">Two checkpoints scheduled around Day 14. Consider merging wound check with cardiology follow-up.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="text-xs font-bold text-white bg-[#5DADE2] hover:bg-[#4a9acb] px-3 py-1.5 rounded transition-colors">Merge Checkpoints</button>
+<button class="text-xs font-bold text-text-main bg-white border border-gray-200 hover:bg-gray-50 px-3 py-1.5 rounded transition-colors">Keep Separate</button>
+</div>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-medium text-text-main">Cardiac Rehab Phase II Entry</td>
+<td class="py-4 px-4 text-text-secondary">Day 28</td>
+<td class="py-4 px-4">
+<span class="px-2 py-1 bg-[#E8F4F8] text-[#5DADE2] text-[10px] font-bold rounded uppercase">In-Person</span>
+</td>
+<td class="py-4 px-4 text-text-secondary">Exercise stress test baseline</td>
+<td class="py-4 px-4 text-text-secondary">Template</td>
+<td class="py-4 px-4 text-right">
+<div class="flex items-center justify-end gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 ai-modified-row">
+<td class="py-4 px-6 font-medium text-text-main">Month 2 Diabetes Optimization</td>
+<td class="py-4 px-4 text-text-secondary">Day 60</td>
+<td class="py-4 px-4"><span class="px-2 py-1 bg-[#F1F5F9] text-[#6B7280] text-[10px] font-bold rounded uppercase">Telehealth</span></td>
+<td class="py-4 px-4 text-text-secondary">A1c review, insulin adjustment</td>
+<td class="py-4 px-4 text-badge-purple-text font-medium">AI Added</td>
+<td class="py-4 px-4 text-right"><div class="flex items-center justify-end gap-1 text-text-secondary"><span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span></div></td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-medium text-text-main">90-Day Outcome Assessment</td>
+<td class="py-4 px-4 text-text-secondary">Day 90</td>
+<td class="py-4 px-4"><span class="px-2 py-1 bg-[#E8F4F8] text-[#5DADE2] text-[10px] font-bold rounded uppercase">In-Person</span></td>
+<td class="py-4 px-4 text-text-secondary">Symptom-free status check, BMI review</td>
+<td class="py-4 px-4 text-text-secondary">Template</td>
+<td class="py-4 px-4 text-right"><div class="flex items-center justify-end gap-1 text-text-secondary"><span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span></div></td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50 ai-modified-row">
+<td class="py-4 px-6 font-medium text-text-main">Extended Cardiac Monitoring Check</td>
+<td class="py-4 px-4 text-text-secondary">Day 110</td>
+<td class="py-4 px-4"><span class="px-2 py-1 bg-[#F1F5F9] text-[#6B7280] text-[10px] font-bold rounded uppercase">Telehealth</span></td>
+<td class="py-4 px-4 text-text-secondary">Remote rhythm analysis review</td>
+<td class="py-4 px-4 text-badge-purple-text font-medium">AI Added</td>
+<td class="py-4 px-4 text-right"><div class="flex items-center justify-end gap-1 text-text-secondary"><span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span></div></td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-medium text-text-main">Secondary Prevention Review</td>
+<td class="py-4 px-4 text-text-secondary">Day 120</td>
+<td class="py-4 px-4"><span class="px-2 py-1 bg-[#E8F4F8] text-[#5DADE2] text-[10px] font-bold rounded uppercase">In-Person</span></td>
+<td class="py-4 px-4 text-text-secondary">Lipid panel, lifestyle coaching</td>
+<td class="py-4 px-4 text-text-secondary">Template</td>
+<td class="py-4 px-4 text-right"><div class="flex items-center justify-end gap-1 text-text-secondary"><span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span></div></td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-medium text-text-main">Month 5 Psychosocial Check</td>
+<td class="py-4 px-4 text-text-secondary">Day 150</td>
+<td class="py-4 px-4"><span class="px-2 py-1 bg-[#F1F5F9] text-[#6B7280] text-[10px] font-bold rounded uppercase">Telehealth</span></td>
+<td class="py-4 px-4 text-text-secondary">PHQ-9 screening, return to work support</td>
+<td class="py-4 px-4 text-text-secondary">Template</td>
+<td class="py-4 px-4 text-right"><div class="flex items-center justify-end gap-1 text-text-secondary"><span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span></div></td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-4 px-6 font-medium text-text-main">Final 6-Month Review</td>
+<td class="py-4 px-4 text-text-secondary">Day 180</td>
+<td class="py-4 px-4"><span class="px-2 py-1 bg-[#E8F4F8] text-[#5DADE2] text-[10px] font-bold rounded uppercase">In-Person</span></td>
+<td class="py-4 px-4 text-text-secondary">Care plan closure, transition to PCP</td>
+<td class="py-4 px-4 text-text-secondary">Template</td>
+<td class="py-4 px-4 text-right"><div class="flex items-center justify-end gap-1 text-text-secondary"><span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">edit</span></div></td>
+</tr>
+</tbody>
+</table>
+<div class="p-4 bg-white border-t border-sidebar-border">
+<button class="flex items-center gap-2 text-primary font-bold text-sm hover:bg-blue-50 px-3 py-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span> Add Checkpoint
+                                </button>
+</div>
+</div>
+</details>
+</div>
+</div>
+</div>
+<footer class="h-[72px] bg-white border-t border-sidebar-border px-8 flex items-center justify-between shrink-0 shadow-[0_-4px_12px_rgba(0,0,0,0.03)] relative z-10">
+<div class="flex items-center gap-2 text-[#10B981] font-bold text-xs uppercase tracking-wider">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+<span>All changes saved</span>
+</div>
+<div class="absolute left-1/2 -translate-x-[110%] flex items-center gap-4">
+<button class="px-4 py-2 text-text-secondary hover:text-text-main font-bold text-sm transition-colors border border-transparent hover:border-gray-200 rounded-lg">Save Draft</button>
+<button class="px-4 py-2 text-text-secondary hover:text-text-main font-bold text-sm transition-colors border border-transparent hover:border-gray-200 rounded-lg">Exit Review</button>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-5 py-2.5 border border-gray-200 text-text-main font-bold text-sm hover:bg-gray-50 rounded-lg transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">arrow_back</span> Back to Step 1
+                    </button>
+<button class="px-6 py-2.5 bg-primary hover:brightness-105 text-white font-bold text-sm rounded-lg shadow-lg shadow-blue-100 flex items-center gap-2 transition-all">
+                        Continue to Step 3
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</footer>
+</main>
+</div>
+
+</body></html>

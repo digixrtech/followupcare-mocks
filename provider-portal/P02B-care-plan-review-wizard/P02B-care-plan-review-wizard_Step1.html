@@ -1,0 +1,602 @@
+<html class="light" lang="en"><head></head><body class="bg-background-light dark:bg-background-dark text-[#0f161a] font-display min-h-screen flex flex-col">
+
+
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Care Plan Review - Hybrid Expanded Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5faee3",
+                        "primary-hover": "#3B97D3",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#121a20",
+                        "safety-yellow": "#FEF3C7",
+                        "info-blue": "#E8F4F8",
+                        "gold-bg": "#FFF9E6",
+                        "purple-ai": "#F3E8FF",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        '8': '32px',
+                        '10': '40px',
+                        '12': '48px',
+                        '16': '64px',
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 24px;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d1dde5;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #b8c6d1;
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        .badge-pill {
+            @apply flex items-center justify-center px-3 rounded-full font-bold uppercase tracking-tight;
+            height: 26px;
+        }
+        .interactive-card {
+            @apply transition-all duration-300 ease-in-out border border-[#d1dde5] dark:border-gray-700;
+        }
+        .interactive-card:hover {
+            @apply shadow-lg border-[#b1c7d6];
+        }
+        .tooltip-kbd {
+            @apply bg-gray-800 text-white text-[10px] px-1.5 py-0.5 rounded ml-1.5 font-mono opacity-80;
+        }
+        #sidebar-toggle {
+            display: none;
+        }
+        #sidebar-toggle:checked ~ div aside#main-sidebar {
+            width: 72px;
+        }
+        #sidebar-toggle:checked ~ div aside#main-sidebar .sidebar-label,
+        #sidebar-toggle:checked ~ div aside#main-sidebar .sidebar-logo-text,
+        #sidebar-toggle:checked ~ div aside#main-sidebar .sidebar-user-text {
+            display: none;
+        }
+        #sidebar-toggle:checked ~ div aside#main-sidebar .sidebar-item {
+            justify-content: center;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        #sidebar-toggle:checked ~ div aside#main-sidebar .sidebar-header {
+            justify-content: center;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        #sidebar-toggle:checked ~ div aside#main-sidebar .toggle-icon {
+            transform: rotate(180deg);
+        }
+        #sidebar-toggle:checked ~ div footer {
+            left: 72px;
+        }
+        #summary-accordion-toggle { display: none; }
+        #summary-accordion-toggle:checked ~ .summary-container {
+            height: 64px;
+        }
+        #summary-accordion-toggle:checked ~ .summary-container .summary-details,
+        #summary-accordion-toggle:checked ~ .summary-container .summary-nav {
+            display: none;
+        }
+        #summary-accordion-toggle:checked ~ .summary-container .chevron-rotate {
+            transform: rotate(180deg);
+        }
+        #summary-accordion-toggle:checked ~ .summary-container .expand-text { display: flex; }
+        #summary-accordion-toggle:checked ~ .summary-container .collapse-text { display: none; }
+        #summary-accordion-toggle:not(:checked) ~ .summary-container .expand-text { display: none; }
+        #summary-accordion-toggle:not(:checked) ~ .summary-container .collapse-text { display: flex; }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+
+
+<input class="hidden" id="sidebar-toggle" type="checkbox"/>
+<div class="flex flex-1 overflow-hidden">
+<aside class="w-[256px] flex-shrink-0 border-r border-[#d1dde5] bg-white dark:bg-[#1a242c] flex flex-col justify-between h-screen sticky top-0 z-50 transition-all duration-300 overflow-x-hidden" id="main-sidebar">
+<div class="flex flex-col gap-8 p-4">
+<div class="sidebar-header flex items-center justify-between px-2">
+<div class="flex items-center gap-3">
+<div class="bg-primary rounded-lg p-1.5 text-white shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined">health_and_safety</span>
+</div>
+<div class="sidebar-logo-text flex flex-col overflow-hidden whitespace-nowrap">
+<h1 class="text-[#0f161a] dark:text-white text-base font-bold leading-tight">FollowCare</h1>
+<p class="text-[#537993] text-xs font-normal">Healthcare Management</p>
+</div>
+</div>
+<label class="p-1 hover:bg-[#e8eef2] rounded-md transition-colors cursor-pointer" for="sidebar-toggle">
+<span class="material-symbols-outlined !text-[20px] text-[#537993] toggle-icon transition-transform">menu_open</span>
+</label>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="sidebar-item flex items-center gap-3 px-3 py-2 text-[#537993] hover:bg-[#e8eef2] dark:hover:bg-primary/20 rounded-lg transition-colors" href="#" title="Dashboard">
+<span class="material-symbols-outlined flex-shrink-0">dashboard</span>
+<p class="sidebar-label text-sm font-medium whitespace-nowrap">Dashboard</p>
+</a>
+<a class="sidebar-item flex items-center gap-3 px-3 py-2 text-[#537993] hover:bg-[#e8eef2] dark:hover:bg-primary/20 rounded-lg transition-colors" href="#" title="Patients">
+<span class="material-symbols-outlined flex-shrink-0">group</span>
+<p class="sidebar-label text-sm font-medium whitespace-nowrap">Patients</p>
+</a>
+<a class="sidebar-item flex items-center gap-3 px-3 py-2 text-[#537993] hover:bg-[#e8eef2] dark:hover:bg-primary/20 rounded-lg transition-colors" href="#" title="Alerts">
+<span class="material-symbols-outlined flex-shrink-0">notifications</span>
+<p class="sidebar-label text-sm font-medium whitespace-nowrap">Alerts</p>
+</a>
+<a class="sidebar-item flex items-center gap-3 px-3 py-2 text-[#537993] hover:bg-[#e8eef2] dark:hover:bg-primary/20 rounded-lg transition-colors" href="#" title="Checkpoints">
+<span class="material-symbols-outlined flex-shrink-0">fact_check</span>
+<p class="sidebar-label text-sm font-medium whitespace-nowrap">Checkpoints</p>
+</a>
+<a class="sidebar-item flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg border-l-4 border-primary" href="#" title="Care Plans">
+<span class="material-symbols-outlined flex-shrink-0">assignment_turned_in</span>
+<p class="sidebar-label text-sm font-bold whitespace-nowrap">Care Plans</p>
+</a>
+<a class="sidebar-item flex items-center gap-3 px-3 py-2 text-[#537993] hover:bg-[#e8eef2] dark:hover:bg-primary/20 rounded-lg transition-colors mt-4" href="#" title="Settings">
+<span class="material-symbols-outlined flex-shrink-0">settings</span>
+<p class="sidebar-label text-sm font-medium whitespace-nowrap">Settings</p>
+</a>
+</nav>
+</div>
+<div class="p-4 border-t border-[#d1dde5] dark:border-gray-700">
+<div class="flex items-center gap-3 p-2">
+<div class="size-9 flex-shrink-0 rounded-full bg-center bg-cover border border-gray-200" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBBtOWrkpLigN0L7unr-iy7sod0mulPHrcsOHEYfYlVivHXD_cEPiNu9syTJjbdEFzXe1mo_3C9wunBB1lRJgEO5mWPrx0uBIsZCKoTfHZuwrcTpdXOc_NJE7210xZoO0mQNo_CIop6N5n29KB4sCuA0bIAH3p2El66cO77Q7CEjAVfxaVToiEP5mC-rVy5SHq7vclnWT6l4AuqciogCeKqIBQLGYVVpnhl13Wu0Mkj-QNxDFjVKXGicPVLoEnThM1CkLd2b-WYe51e')"></div>
+<div class="sidebar-user-text flex flex-col overflow-hidden whitespace-nowrap">
+<p class="text-[#0f161a] dark:text-white text-sm font-bold">Dr. Sarah Chen</p>
+<p class="text-[#537993] text-xs">Lead Oncology</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-w-0 bg-[#f8fafb] dark:bg-background-dark relative pb-24">
+<header class="h-16 flex-shrink-0 flex items-center justify-between px-8 bg-white dark:bg-[#1a242c] border-b border-[#d1dde5] dark:border-gray-700 sticky top-0 z-40">
+<div class="flex flex-col">
+<div class="flex items-center gap-2 text-[#537993] text-[11px] mb-0.5 uppercase tracking-wide">
+<span>Care Plans</span>
+<span class="material-symbols-outlined !text-[12px]">chevron_right</span>
+<span>Robert Martinez</span>
+<span class="material-symbols-outlined !text-[12px]">chevron_right</span>
+<span class="text-primary font-bold">Review</span>
+</div>
+<h2 class="text-[#0f161a] dark:text-white text-lg font-bold leading-tight">Review Care Plan</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<button class="flex items-center gap-2 px-3 py-2 bg-[#f0f4f7] dark:bg-gray-800 rounded-lg text-sm text-[#537993] hover:bg-[#e8eef2] transition-colors border border-transparent hover:border-[#d1dde5]">
+<span class="material-symbols-outlined !text-[20px]">auto_awesome</span>
+<span>AI Search</span>
+<span class="tooltip-kbd">⌘K</span>
+</button>
+</div>
+<div class="h-6 w-px bg-[#d1dde5] mx-2"></div>
+<button class="p-2 text-[#537993] hover:bg-[#e8eef2] rounded-lg relative transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white"></span>
+</button>
+<div class="size-8 rounded-full bg-center bg-cover ml-2 border border-gray-200" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB2_ED3qiRiirXl5I3ybm-fvNMMEjZGsEfwhx5GFDzYgvYnGCaBIKDV06ZiupM3rvFOp6DSkKtXYBGC7yAMZc6FwapUm-hl7w62k-3O81at69JEiIxUVnTtwFvbAf2WsxhydrutH7ImTIqTQYo7b7k6C7QBj2kZDDOLoTBMbe6bPVDY82q2IeEnR9vIWOUYdjyJ20oWKBnrTs8DT4ZDmV4vyXZspRaGF8waUxPS_nTHbMsl5wnPaQpoCCkYoxnorHEwz8-mIxw44ahE')"></div>
+</div>
+</header>
+<div class="sticky top-16 z-30 bg-safety-yellow border-b border-yellow-200 px-8 py-3 shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-yellow-700">warning</span>
+<p class="text-yellow-900 text-sm font-bold tracking-tight uppercase">
+                        Robert Martinez (MRN: 98765432) - 60M | Allergies: <span class="text-red-600 underline font-extrabold decoration-2">Latex, Codeine</span>
+</p>
+</div>
+<button class="text-[11px] font-bold bg-white/50 px-4 py-1.5 rounded-full border border-yellow-300 hover:bg-white text-yellow-800 transition-all uppercase tracking-wider cursor-pointer">
+                    View Full Chart
+                </button>
+</div>
+</div>
+<div class="flex flex-1 overflow-hidden">
+<aside class="w-[250px] flex-shrink-0 bg-white dark:bg-[#1a242c] border-r border-[#d1dde5] dark:border-gray-700 flex flex-col overflow-y-auto">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-[10px] font-bold text-[#537993] uppercase tracking-widest">Patient Identity</h3>
+<button class="p-1 hover:bg-[#f0f4f7] rounded-md transition-colors" title="Collapse Context">
+<span class="material-symbols-outlined !text-[16px] text-[#537993]">keyboard_double_arrow_left</span>
+</button>
+</div>
+<div class="space-y-1 mb-4">
+<p class="text-[16px] font-bold text-[#0f161a] dark:text-white">Robert Martinez, 60M</p>
+<p class="font-mono text-[11px] text-[#537993]">MRN: 98765432</p>
+</div>
+<div class="space-y-4">
+<div>
+<p class="text-[10px] text-[#537993] uppercase font-extrabold mb-1">Primary Procedure</p>
+<p class="text-xs font-semibold text-[#0f161a] dark:text-white">CABG Surgery (3-vessel)</p>
+</div>
+<div>
+<p class="text-[10px] text-[#537993] uppercase font-extrabold mb-1">Recovery Status</p>
+<div class="flex items-center gap-2">
+<span class="text-xs font-medium text-[#0f161a] dark:text-white">Jan 11, 2026</span>
+<span class="badge-pill bg-blue-50 text-blue-600 border border-blue-100 text-[10px]">POD 2</span>
+</div>
+</div>
+</div>
+</div>
+<div class="border-t border-[#f0f3f5] dark:border-gray-700 mx-4"></div>
+<div class="p-6">
+<h3 class="text-[10px] font-bold text-[#537993] uppercase tracking-widest mb-4">Critical Risk Factors</h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-2.5 py-1 rounded text-[10px] font-bold bg-red-50 text-red-700 border border-red-100 uppercase">Type 2 Diabetes</span>
+<span class="px-2.5 py-1 rounded text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-100 uppercase">Obesity BMI 32</span>
+<span class="px-2.5 py-1 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-100 uppercase">Hypertension</span>
+</div>
+</div>
+<div class="border-t border-[#f0f3f5] dark:border-gray-700 mx-4"></div>
+<div class="p-6">
+<h3 class="text-[10px] font-bold text-[#537993] uppercase tracking-widest mb-4">Quick Links</h3>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-primary/5 group transition-colors cursor-pointer" href="#">
+<span class="material-symbols-outlined !text-[18px] text-primary">analytics</span>
+<span class="text-xs font-bold text-[#537993] group-hover:text-primary">Full Patient Summary</span>
+</a>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-primary/5 group transition-colors cursor-pointer" href="#">
+<span class="material-symbols-outlined !text-[18px] text-primary">history</span>
+<span class="text-xs font-bold text-[#537993] group-hover:text-primary">Care Plan History</span>
+</a>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-primary/5 group transition-colors cursor-pointer" href="#">
+<span class="material-symbols-outlined !text-[18px] text-primary">medication</span>
+<span class="text-xs font-bold text-[#537993] group-hover:text-primary">Medication Profile</span>
+</a>
+</nav>
+</div>
+</aside>
+<div class="flex-1 overflow-y-auto p-8 flex flex-col gap-8 custom-scrollbar">
+<header>
+<h2 class="text-2xl font-bold text-[#0f161a] dark:text-white">Patient &amp; Template Overview</h2>
+<p class="text-[#537993] text-base mt-1">Step 1: Review clinical findings and template suitability.</p>
+</header>
+<div class="bg-white dark:bg-[#1a242c] border border-[#d1dde5] dark:border-gray-700 rounded-xl p-6 shadow-sm">
+<div class="flex items-center">
+<div class="flex items-center relative flex-1">
+<div class="size-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm z-10 shadow-md">1</div>
+<div class="ml-4 font-bold text-sm text-[#0f161a] dark:text-white">Patient Overview</div>
+<div class="flex-1 h-1 bg-primary/20 mx-6 rounded-full relative">
+<div class="absolute top-0 left-0 w-1/2 h-full bg-primary"></div>
+</div>
+</div>
+<div class="flex items-center relative flex-1">
+<div class="size-8 rounded-full bg-[#e8eef2] dark:bg-gray-700 text-[#537993] flex items-center justify-center font-bold text-sm z-10">2</div>
+<div class="ml-4 font-medium text-sm text-[#537993]">Care Plan Details</div>
+<div class="flex-1 h-1 bg-primary/10 mx-6 rounded-full"></div>
+</div>
+<div class="flex items-center">
+<div class="size-8 rounded-full bg-[#e8eef2] dark:bg-gray-700 text-[#537993] flex items-center justify-center font-bold text-sm z-10">3</div>
+<div class="ml-4 font-medium text-sm text-[#537993]">Final Review</div>
+</div>
+</div>
+</div>
+<div class="relative">
+<input class="hidden" id="summary-accordion-toggle" type="checkbox"/>
+<div class="interactive-card summary-container bg-white dark:bg-[#1a242c] rounded-xl flex flex-col h-[600px] overflow-hidden">
+<label class="sticky top-0 z-20 bg-white border-b border-[#e2e8f0] p-4 flex items-center justify-between cursor-pointer group/header hover:bg-gray-50 transition-colors" for="summary-accordion-toggle">
+<div class="flex items-center gap-6">
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-[#537993] uppercase tracking-wider">Patient ID</span>
+<h3 class="text-sm font-bold text-gray-900">Robert Martinez</h3>
+</div>
+<div class="h-8 w-px bg-gray-200"></div>
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-[#537993] uppercase tracking-wider">Procedure &amp; Surgeon</span>
+<p class="text-sm text-gray-900 font-semibold">CABG 3-vessel <span class="text-[#537993] font-normal mx-1">|</span> Dr. Sarah Chen</p>
+</div>
+<div class="h-8 w-px bg-gray-200"></div>
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-[#537993] uppercase tracking-wider">Critical Alerts &amp; Status</span>
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold text-red-600 uppercase">Allergies: Latex, Codeine</span>
+<span class="h-1 w-1 bg-gray-300 rounded-full"></span>
+<span class="text-[10px] font-bold text-green-600 uppercase">Status: Stable</span>
+</div>
+</div>
+</div>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-gray-400 chevron-rotate transition-transform duration-300">expand_less</span>
+</div>
+</label>
+<div class="summary-nav sticky top-[73px] z-10 bg-[#f8fafb] border-b border-[#e2e8f0] px-6 py-2 flex items-center gap-8 overflow-x-auto no-scrollbar">
+<a class="text-[11px] font-bold text-primary hover:text-primary-hover whitespace-nowrap uppercase tracking-wider" href="#procedure">Procedure</a>
+<a class="text-[11px] font-bold text-[#537993] hover:text-primary whitespace-nowrap uppercase tracking-wider" href="#risks">Risks</a>
+<a class="text-[11px] font-bold text-[#537993] hover:text-primary whitespace-nowrap uppercase tracking-wider" href="#status">Status</a>
+<a class="text-[11px] font-bold text-[#537993] hover:text-primary whitespace-nowrap uppercase tracking-wider" href="#meds">Medications</a>
+<a class="text-[11px] font-bold text-[#537993] hover:text-primary whitespace-nowrap uppercase tracking-wider" href="#discharge">Discharge</a>
+</div>
+<div class="summary-details flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar bg-[#fcfdfe]">
+<section class="bg-[#f1f5f9] border-l-4 border-slate-400 p-4 rounded-r-lg shadow-sm" id="procedure">
+<h4 class="text-[11px] font-extrabold text-slate-600 uppercase tracking-widest mb-3">Primary Focus: Procedure Details</h4>
+<div class="grid grid-cols-3 gap-6">
+<div>
+<p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Main Procedure</p>
+<p class="text-sm font-semibold text-gray-900 leading-tight">3-vessel Coronary Artery Bypass Graft</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-500 uppercase mb-1">CPT / ICD-10 Codes</p>
+<p class="text-sm font-mono text-gray-700 bg-white/50 px-1.5 rounded w-fit">33533, I25.10</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Provider &amp; Facility</p>
+<p class="text-sm font-medium text-gray-800">St. Mary's Cardiac Wing</p>
+</div>
+</div>
+</section>
+<section class="bg-[#fffbeb] border-l-4 border-amber-400 p-4 rounded-r-lg shadow-sm" id="risks">
+<h4 class="text-[11px] font-extrabold text-amber-700 uppercase tracking-widest mb-3">Clinical Profile &amp; Risk Factors</h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white/60 p-3 rounded-md border border-amber-100">
+<p class="text-[11px] font-bold text-gray-900 mb-1">Active Conditions</p>
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between text-xs">
+<span>Type 2 Diabetes Mellitus</span>
+<span class="text-red-500">🔴 Critical</span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<span>Obesity (BMI 32.4)</span>
+<span class="text-amber-500">🟡 Moderate</span>
+</div>
+</div>
+</div>
+<div class="p-3">
+<p class="text-[11px] font-bold text-gray-900 mb-1">Risk Assessment</p>
+<p class="text-xs text-amber-900 leading-relaxed italic">High risk for wound dehiscence and glycemic instability post-op due to combined metabolic load.</p>
+</div>
+</div>
+</section>
+<section class="bg-[#eff6ff] border-l-4 border-blue-400 p-4 rounded-r-lg shadow-sm" id="status">
+<h4 class="text-[11px] font-extrabold text-blue-700 uppercase tracking-widest mb-3">Current Post-Op Status</h4>
+<div class="space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="text-[10px] font-bold text-blue-600 uppercase mb-1">Recovery Details</p>
+<p class="text-xs font-medium text-gray-800">POD 2: Mobilizing with assist. Incision dry and intact.</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-blue-600 uppercase mb-1">Pain Management</p>
+<p class="text-xs font-medium text-gray-800">VAS Score: 3/10 (Controlled with PRN acetaminophen).</p>
+</div>
+</div>
+<div class="bg-white border border-blue-100 rounded-lg p-3 flex items-center justify-between shadow-sm">
+<div class="text-center px-4">
+<p class="text-[9px] font-bold text-gray-400 uppercase">HR</p>
+<p class="text-sm font-bold text-gray-900">78 <span class="text-[10px] font-normal text-gray-500">bpm</span></p>
+</div>
+<div class="w-px h-6 bg-gray-100"></div>
+<div class="text-center px-4">
+<p class="text-[9px] font-bold text-gray-400 uppercase">BP</p>
+<p class="text-sm font-bold text-gray-900">124/82 <span class="text-[10px] font-normal text-gray-500">mmHg</span></p>
+</div>
+<div class="w-px h-6 bg-gray-100"></div>
+<div class="text-center px-4">
+<p class="text-[9px] font-bold text-gray-400 uppercase">SpO2</p>
+<p class="text-sm font-bold text-gray-900">98 <span class="text-[10px] font-normal text-gray-500">%</span></p>
+</div>
+<div class="w-px h-6 bg-gray-100"></div>
+<div class="text-center px-4">
+<p class="text-[9px] font-bold text-gray-400 uppercase">Glucose</p>
+<p class="text-sm font-bold text-gray-900">142 <span class="text-[10px] font-normal text-gray-500">mg/dL</span></p>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-[#fef2f2] border-l-4 border-red-500 p-4 rounded-r-lg shadow-sm" id="meds">
+<h4 class="text-[11px] font-extrabold text-red-700 uppercase tracking-widest mb-3">Critical Safety: Meds &amp; Allergies</h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-red-50/50 p-3 rounded-md border border-red-100">
+<p class="text-[10px] font-bold text-red-600 uppercase mb-2">Allergy Notes</p>
+<p class="text-xs text-gray-900 font-semibold mb-1">Latex (Anaphylaxis)</p>
+<p class="text-[10px] text-gray-600 leading-tight">Patient requires non-latex environment. Codeine causes severe GI distress/vomiting.</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-gray-500 uppercase mb-2">Current Medications</p>
+<ul class="space-y-1.5">
+<li class="flex items-center justify-between bg-white px-2 py-1 rounded border border-red-50">
+<span class="text-xs text-gray-800">Clopidogrel 75mg</span>
+<span class="text-[8px] font-bold bg-red-100 text-red-700 px-1.5 py-0.5 rounded uppercase">Critical - Lifelong</span>
+</li>
+<li class="flex items-center justify-between bg-white px-2 py-1 rounded border border-red-50">
+<span class="text-xs text-gray-800">Atorvastatin 40mg</span>
+<span class="text-[8px] font-bold bg-red-100 text-red-700 px-1.5 py-0.5 rounded uppercase">Critical - Lifelong</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="bg-[#f0fdf4] border-l-4 border-green-500 p-4 rounded-r-lg shadow-sm" id="discharge">
+<h4 class="text-[11px] font-extrabold text-green-700 uppercase tracking-widest mb-3">Discharge Planning &amp; Goals</h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold text-gray-500 uppercase">Target Discharge:</span>
+<span class="text-sm font-bold text-green-700">POD 5-7 (Jan 14-16)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold text-gray-500 uppercase">Support:</span>
+<span class="text-xs text-gray-800">Spouse at home, ground floor access.</span>
+</div>
+</div>
+<div>
+<p class="text-[10px] font-bold text-gray-500 uppercase mb-1">Patient Recovery Goals</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined !text-sm text-green-600">check_circle</span>
+<span class="text-xs font-medium text-gray-800">Return to work (remote) in 4 weeks.</span>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined !text-sm text-green-600">check_circle</span>
+<span class="text-xs font-medium text-gray-800">Walk 1 mile daily by Week 6.</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="sticky bottom-0 bg-white border-t border-[#e2e8f0] p-4 flex items-center justify-between z-20">
+<div class="flex items-center gap-6">
+<label class="cursor-pointer text-xs font-bold text-primary flex items-center gap-2 hover:bg-primary/5 px-2 py-1 rounded transition-colors collapse-text" for="summary-accordion-toggle">
+                                    Collapse <span class="text-[10px]">▲</span>
+</label>
+<label class="cursor-pointer text-xs font-bold text-primary flex items-center gap-2 hover:bg-primary/5 px-2 py-1 rounded transition-colors expand-text" for="summary-accordion-toggle">
+                                    Expand Details <span class="text-[10px]">▼</span>
+</label>
+<a class="text-xs font-bold text-primary flex items-center gap-2 hover:bg-primary/5 px-2 py-1 rounded transition-colors cursor-pointer" href="#">
+                                    View Full EHR Record
+                                    <span class="material-symbols-outlined !text-[16px]">arrow_forward</span>
+</a>
+</div>
+<p class="text-[10px] text-[#537993] font-medium italic">Data synced from Epic EHR at 09:15 AM</p>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<div>
+<h2 class="text-xl font-bold text-[#0f161a] dark:text-white">Care Program Template</h2>
+<p class="text-[#537993] text-sm">AI-selected template based on procedure type and patient risk profile</p>
+</div>
+<div class="interactive-card bg-info-blue border border-[#c5e1eb] rounded-xl overflow-hidden">
+<div class="p-8">
+<div class="flex items-start justify-between mb-6">
+<div class="flex flex-col gap-3">
+<span class="badge-pill bg-[#334155] text-white text-[10px] w-fit">
+                                        CABG_HIGH_RISK_V2_0
+                                    </span>
+<h3 class="text-xl font-bold text-gray-900 leading-tight">Coronary Artery Bypass Graft - High Risk</h3>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-6 text-xs font-medium text-[#537993]">
+<div class="flex flex-col items-end">
+<span class="text-[10px] uppercase font-extrabold text-gray-400 mb-1">Version</span>
+<span class="text-gray-900 font-bold">v2.0.0</span>
+</div>
+<div class="h-10 w-px bg-[#c5e1eb]"></div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] uppercase font-extrabold text-gray-400 mb-1">Owner</span>
+<span class="text-gray-900 font-bold">Cardiothoracic Surgery</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-8">
+<span class="material-symbols-outlined text-[#537993] !text-[20px]">link</span>
+<a class="text-sm font-bold text-primary hover:underline decoration-2 underline-offset-4" href="#">
+                                    ACC/AHA CABG Guidelines (2021), ERAS Cardiac (2024)
+                                </a>
+</div>
+<div class="bg-gold-bg border border-[#FDE68A] rounded-lg p-5 flex items-center justify-between mb-6 shadow-sm">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-amber-600">warning</span>
+<p class="text-sm font-medium text-amber-900">
+                                        High-risk template selected due to: <span class="font-bold">Type 2 Diabetes + Obesity (dual comorbidity load)</span>
+</p>
+</div>
+<span class="badge-pill bg-amber-200 text-amber-800 border border-amber-300 text-[10px]">
+                                    High Risk
+                                </span>
+</div>
+<details class="group bg-white/40 border border-[#c5e1eb] rounded-lg">
+<summary class="flex items-center justify-between p-4 cursor-pointer select-none hover:bg-white/30 transition-colors">
+<span class="text-sm font-bold text-gray-700">View Template Details</span>
+<span class="material-symbols-outlined text-gray-500 transition-transform duration-300 group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-4 pt-0">
+<div class="bg-white border border-[#e2e8f0] rounded-lg p-6 shadow-sm">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div>
+<p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Base Structure</p>
+<p class="text-sm font-bold text-gray-900">5 phases, 180 days</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Phase Breakdown</p>
+<p class="text-sm font-bold text-gray-900">Pre-op, Acute, Sub-acute, Rehab, Maint.</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Base Tasks</p>
+<p class="text-sm font-bold text-gray-900">7 tasks</p>
+</div>
+<div>
+<p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Base Signals</p>
+<p class="text-sm font-bold text-gray-900">6 signals</p>
+</div>
+</div>
+</div>
+</div>
+</details>
+</div>
+<div class="bg-purple-ai border-t border-[#E9D5FF] p-5 flex items-center gap-4">
+<span class="material-symbols-outlined text-purple-600 !text-2xl">auto_awesome</span>
+<p class="text-sm font-medium text-purple-900">
+                                AI has added <span class="font-bold">18 modifications</span> based on diabetes, obesity, and metabolic syndrome
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer class="h-20 flex-shrink-0 bg-white dark:bg-[#1a242c] border-t border-[#d1dde5] dark:border-gray-700 flex items-center justify-between px-8 fixed bottom-0 left-[256px] right-0 z-40 shadow-[0_-8px_16px_rgba(0,0,0,0.04)] transition-all duration-300">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2.5 text-[#537993]">
+<span class="material-symbols-outlined !text-[20px] text-green-500 font-bold">check_circle</span>
+<span class="text-xs font-bold italic tracking-tight">Auto-saved at 10:45 AM</span>
+</div>
+<div class="h-6 w-px bg-[#d1dde5]"></div>
+<div class="flex items-center gap-6">
+<button class="text-[#537993] text-sm font-bold px-3 py-2 rounded hover:bg-gray-100 transition-colors cursor-pointer">Save Draft</button>
+<button class="text-[#537993] text-sm font-bold px-3 py-2 rounded hover:bg-gray-100 transition-colors cursor-pointer">Exit Review</button>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<button class="px-10 h-12 bg-primary hover:bg-primary-hover text-white rounded-lg font-bold text-base flex items-center gap-3 transition-all shadow-md active:scale-[0.98] relative overflow-visible cursor-pointer">
+<span>Continue to Step 2</span>
+<span class="material-symbols-outlined !text-[22px]">arrow_forward</span>
+</button>
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-800 text-white text-[11px] px-2 py-1 rounded whitespace-nowrap pointer-events-none">
+                        Next Section <span class="ml-1 font-mono text-gray-400">⌘→</span>
+</div>
+</div>
+</div>
+</footer>
+</main>
+</div>
+
+```</body></html>

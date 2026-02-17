@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Check-in Flow Step 2: Pain Question</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7bb979",
+                        "background-light": "#F8F7F5",
+                        "background-dark": "#161c16",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display transition-colors duration-300">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between p-4 bg-background-light dark:bg-background-dark sticky top-0 z-10">
+<button class="text-[#121712] dark:text-white flex items-center justify-center size-10 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<span class="text-[#121712] dark:text-white text-sm font-medium">Step 2 of 5</span>
+<div class="size-10"></div> <!-- Spacer for centering title -->
+</header>
+<!-- Progress Bar Section -->
+<div class="px-6 py-2">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<p class="text-[#121712] dark:text-gray-300 text-xs font-medium uppercase tracking-wider">Check-in Progress</p>
+<p class="text-[#121712] dark:text-gray-300 text-xs font-normal">40% Complete</p>
+</div>
+<div class="h-2 w-full rounded-full bg-[#d7e0d7] dark:bg-gray-700">
+<div class="h-full w-[40%] rounded-full bg-primary shadow-sm transition-all duration-500"></div>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col px-6 pt-10 pb-24 items-center max-w-lg mx-auto w-full">
+<!-- Headline -->
+<h1 class="text-[#121712] dark:text-white text-2xl font-bold leading-tight text-center mb-8">
+            Rate your pain level
+        </h1>
+<!-- Emoji Indicators -->
+<div class="grid grid-cols-5 w-full gap-4 mb-10">
+<div class="flex flex-col items-center gap-2 transition-transform scale-110">
+<div class="size-14 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center text-3xl">
+                    😊
+                </div>
+<span class="text-[10px] font-bold text-primary uppercase">No Pain</span>
+</div>
+<div class="flex flex-col items-center gap-2 opacity-40">
+<div class="size-14 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-3xl">
+                    🙂
+                </div>
+</div>
+<div class="flex flex-col items-center gap-2 opacity-40">
+<div class="size-14 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-3xl">
+                    😐
+                </div>
+</div>
+<div class="flex flex-col items-center gap-2 opacity-40">
+<div class="size-14 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-3xl">
+                    😟
+                </div>
+</div>
+<div class="flex flex-col items-center gap-2 opacity-40">
+<div class="size-14 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-3xl">
+                    😫
+                </div>
+</div>
+</div>
+<!-- Slider Section -->
+<div class="w-full bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-sm border border-gray-100 dark:border-gray-800">
+<div class="flex flex-col gap-8">
+<!-- Current Value Display -->
+<div class="flex flex-col items-center">
+<span class="text-6xl font-bold text-[#121712] dark:text-white">2</span>
+<span class="text-primary font-semibold mt-1">Mild Pain</span>
+</div>
+<!-- Custom Slider -->
+<div class="relative py-4">
+<div class="h-3 w-full bg-[#d7e0d7] dark:bg-gray-800 rounded-full relative overflow-hidden">
+<div class="h-full bg-primary w-[20%] rounded-full"></div>
+</div>
+<!-- Slider Thumb Positioned at value 2 (20% of 10) -->
+<div class="absolute top-1/2 left-[20%] -translate-y-1/2 -translate-x-1/2 size-8 bg-primary rounded-full border-4 border-white dark:border-gray-900 shadow-lg ring-2 ring-primary/20"></div>
+</div>
+<!-- Slider Labels -->
+<div class="flex justify-between px-1">
+<span class="text-xs font-bold text-gray-400 dark:text-gray-500">0</span>
+<span class="text-xs font-bold text-gray-400 dark:text-gray-500">2</span>
+<span class="text-xs font-bold text-gray-400 dark:text-gray-500">4</span>
+<span class="text-xs font-bold text-gray-400 dark:text-gray-500">6</span>
+<span class="text-xs font-bold text-gray-400 dark:text-gray-500">8</span>
+<span class="text-xs font-bold text-gray-400 dark:text-gray-500">10</span>
+</div>
+</div>
+</div>
+<!-- Descriptive Text -->
+<p class="mt-8 text-center text-gray-500 dark:text-gray-400 text-sm px-4">
+            Select the number that best describes your pain level right now.
+        </p>
+</main>
+<!-- Footer Action -->
+<footer class="fixed bottom-0 left-0 right-0 p-6 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-lg mx-auto">
+<button class="w-full py-5 bg-primary hover:bg-[#6ca86a] text-white text-lg font-bold rounded-full shadow-lg transition-all active:scale-[0.98]">
+                Next
+            </button>
+</div>
+</footer>
+</body></html>

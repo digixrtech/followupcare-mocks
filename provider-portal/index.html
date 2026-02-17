@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Provider Portal Screens - FollowCare</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { display: ["Inter", "sans-serif"] },
+      colors: {
+        sky: "#5eaee4",
+        "sky-dark": "#4a9bc8",
+      }
+    }
+  }
+}
+</script>
+</head>
+<body class="bg-gray-50 font-display min-h-screen">
+  <div class="max-w-6xl mx-auto px-6 py-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-8">
+      <a href="../" class="text-sky hover:text-sky-dark text-sm font-medium">&larr; Back to Home</a>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-10">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="h-8 w-1.5 bg-sky rounded-full"></div>
+        <h1 class="text-3xl font-bold text-gray-900">Provider Portal</h1>
+      </div>
+      <p class="text-gray-500 ml-5">Clinical dashboard for care teams managing post-surgical patient recovery</p>
+    </div>
+
+    <!-- Section: Dashboard -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold text-gray-800 mb-1">P01A &mdash; Dashboard</h2>
+      <p class="text-sm text-gray-400 mb-5">Provider's main dashboard with patient overview, alerts, and care plan status.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <a href="P01A-dashboard/P01A-provider-dashboard.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sky/30 transition-all">
+          <div class="aspect-[16/10] overflow-hidden bg-gray-100">
+            <img src="P01A-dashboard/P01A-provider-dashboard.png" alt="Provider Dashboard" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-4">
+            <p class="text-sm font-medium text-gray-700">Provider Dashboard</p>
+            <p class="text-xs text-gray-400">Overview with patient list, alerts & stats</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Section: Care Plan Approvals -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold text-gray-800 mb-1">P02A &mdash; Care Plan Approvals</h2>
+      <p class="text-sm text-gray-400 mb-5">Queue of AI-generated care plans awaiting provider review and approval.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <a href="P02A-care-plan-approvals/P02A-care-plan-approvals.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sky/30 transition-all">
+          <div class="aspect-[16/10] overflow-hidden bg-gray-100">
+            <img src="P02A-care-plan-approvals/P02A-care-plan-approvals.png" alt="Care Plan Approvals" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-4">
+            <p class="text-sm font-medium text-gray-700">Care Plan Approvals</p>
+            <p class="text-xs text-gray-400">Review queue with filtering & status</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Section: Care Plan Review Wizard -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold text-gray-800 mb-1">P02B &mdash; Care Plan Review Wizard</h2>
+      <p class="text-sm text-gray-400 mb-5">Three-step wizard for reviewing, editing, and approving individual care plans.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <a href="P02B-care-plan-review-wizard/P02B-care-plan-review-wizard_Step1.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sky/30 transition-all">
+          <div class="aspect-[16/10] overflow-hidden bg-gray-100">
+            <img src="P02B-care-plan-review-wizard/P02B-care-plan-review-wizard_Step1.png" alt="Wizard Step 1" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-4">
+            <p class="text-sm font-medium text-gray-700">Step 1: Patient Summary</p>
+            <p class="text-xs text-gray-400">Patient info, procedure & AI confidence</p>
+          </div>
+        </a>
+
+        <a href="P02B-care-plan-review-wizard/P02B-care-plan-review-wizard_Step2.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sky/30 transition-all">
+          <div class="aspect-[16/10] overflow-hidden bg-gray-100">
+            <img src="P02B-care-plan-review-wizard/P02B-care-plan-review-wizard_Step2.png" alt="Wizard Step 2" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-4">
+            <p class="text-sm font-medium text-gray-700">Step 2: Care Plan Details</p>
+            <p class="text-xs text-gray-400">Review milestones, tasks & medications</p>
+          </div>
+        </a>
+
+        <a href="P02B-care-plan-review-wizard/P02B-care-plan-review-wizard_Step3.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sky/30 transition-all">
+          <div class="aspect-[16/10] overflow-hidden bg-gray-100">
+            <img src="P02B-care-plan-review-wizard/P02B-care-plan-review-wizard_Step3.png" alt="Wizard Step 3" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-4">
+            <p class="text-sm font-medium text-gray-700">Step 3: Review & Approve</p>
+            <p class="text-xs text-gray-400">Final review, notes & approval</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Section: Patient Detail -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold text-gray-800 mb-1">P03B &mdash; Patient Detail & Monitoring</h2>
+      <p class="text-sm text-gray-400 mb-5">Individual patient view with vitals, care plan progress, and deviation handling.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <a href="P03B-patient-detail/P03B-patient-detail-monitor.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sky/30 transition-all">
+          <div class="aspect-[16/10] overflow-hidden bg-gray-100">
+            <img src="P03B-patient-detail/P03B-patient-detail-monitor.png" alt="Patient Detail" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-4">
+            <p class="text-sm font-medium text-gray-700">Patient Detail Monitor</p>
+            <p class="text-xs text-gray-400">Vitals, timeline & care plan status</p>
+          </div>
+        </a>
+
+        <a href="P03B-patient-detail/P03B-M1-deviation-action-modal.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sky/30 transition-all">
+          <div class="aspect-[16/10] overflow-hidden bg-gray-100">
+            <img src="P03B-patient-detail/P03B-M1-deviation-action-modal.png" alt="Deviation Modal" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-4">
+            <p class="text-sm font-medium text-gray-700">Deviation Action Modal</p>
+            <p class="text-xs text-gray-400">Handle care plan deviations</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="text-center mt-8 pt-8 border-t border-gray-100 text-sm text-gray-400">
+      <p>FollowCare Provider Portal &mdash; Design prototypes for stakeholder review</p>
+    </div>
+  </div>
+</body>
+</html>

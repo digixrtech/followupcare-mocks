@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Care Plan Approvals - FollowCare</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "sidebar-light": "#ffffff",
+                        "sidebar-dark": "#182430",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.375rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 h-screen overflow-hidden flex">
+<!-- Sidebar -->
+<aside class="w-64 flex-shrink-0 bg-sidebar-light dark:bg-sidebar-dark border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between z-20">
+<div class="flex flex-col h-full">
+<!-- Logo Area -->
+<div class="h-16 flex items-center px-6 border-b border-slate-100 dark:border-slate-800">
+<div class="flex gap-3 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8 bg-primary flex items-center justify-center text-white" data-alt="FollowCare Logo">
+<span class="material-symbols-outlined text-[20px]">ecg_heart</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-base font-semibold leading-none">FollowCare</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-normal mt-1">Provider Portal</p>
+</div>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex-1 overflow-y-auto py-6 px-3 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">group</span>
+<span class="text-sm font-medium">My Patients</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">notifications</span>
+<span class="text-sm font-medium">Alerts</span>
+<span class="ml-auto bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 text-xs font-bold px-2 py-0.5 rounded-full">3</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">flag</span>
+<span class="text-sm font-medium">Checkpoints</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary dark:text-blue-400 transition-colors group" href="#">
+<span class="material-symbols-outlined icon-fill">description</span>
+<span class="text-sm font-medium">Care Plans</span>
+</a>
+<div class="my-2 border-t border-slate-100 dark:border-slate-800 mx-3"></div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<!-- User Profile -->
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 bg-center bg-cover" data-alt="Doctor Profile Picture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDLBP7DZnnEsigDS0ItuOuGJtlgszJ_ghk0t-A7HlQr82gdDD-csusUGTmBLCck05cE9WXvPzgJcK2feJZksQ51wHrPmQ7sS8iVP7kksXorITxtdIcKC9X9eFjaht71uOs_rV1hVkjTDQalz_OKPxb9Yqi8hc9EaVDaLvFO3dxiYITRKxU-ensXV2BcVS5QP0CAdEUFJBy97uCZPlQr55hiJHKeyPQNtMI-vrIFOTd6UkKLRmZNY7_yBn78V3tnR6q0Y-qguTsNYYOs');"></div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-sm font-medium text-slate-900 dark:text-white truncate">Dr. Sarah Smith</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 truncate">Orthopedics</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col min-w-0">
+<!-- Top Header -->
+<header class="h-16 flex items-center justify-between px-8 bg-white dark:bg-sidebar-dark border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10 flex-shrink-0">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-1 text-slate-500 hover:text-slate-700 dark:text-slate-400">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-lg font-bold text-slate-900 dark:text-white">Care Plan Approvals</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-md text-sm font-medium text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>Oct 24, 2023</span>
+</div>
+<button class="relative p-2 text-slate-500 hover:text-primary dark:text-slate-400 transition-colors rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-sidebar-dark"></span>
+</button>
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-700 bg-center bg-cover border border-slate-200 dark:border-slate-600" data-alt="User Avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCUCCjKnBsNaA2myuUIIOeP68f8STzWIO9cSbISyR_3Y3fgWAsqkqCLLH7CjlY7g4WB5Erx7NV7HzTHZmphscOTwtOlr_OjMeEe2Uc40lwAJx4BINumg0fN8obg4-5ajFg1JaZpZWlB_5Qi51GpTVMiHX4ey9Q9faFiqm1PznbvkafdLs8P1HXVBLjvjzIN2SYRhvPe0aDvqs-vka7ZV4z86FzNYFmRZEkS2ONLr1GADyBmZQ3Krva5PApllM6B5WJFbQCs_qMAcGGP');"></div>
+</div>
+</header>
+<!-- Scrollable Content Area -->
+<main class="flex-1 overflow-y-auto p-8">
+<div class="max-w-7xl mx-auto flex flex-col gap-8">
+<!-- Summary Stats -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-white dark:bg-sidebar-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Pending Approvals</p>
+<span class="p-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg material-symbols-outlined text-[20px]">pending_actions</span>
+</div>
+<p class="text-2xl font-bold text-slate-900 dark:text-white mt-2">12</p>
+</div>
+<div class="bg-white dark:bg-sidebar-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">High Risk Plans</p>
+<span class="p-1.5 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg material-symbols-outlined text-[20px] icon-fill">warning</span>
+</div>
+<p class="text-2xl font-bold text-red-600 dark:text-red-400 mt-2">3</p>
+</div>
+<div class="bg-white dark:bg-sidebar-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Overdue Reviews</p>
+<span class="p-1.5 bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 rounded-lg material-symbols-outlined text-[20px]">history</span>
+</div>
+<p class="text-2xl font-bold text-orange-600 dark:text-orange-400 mt-2">1</p>
+</div>
+<div class="bg-white dark:bg-sidebar-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Added Today</p>
+<span class="p-1.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 rounded-lg material-symbols-outlined text-[20px]">today</span>
+</div>
+<p class="text-2xl font-bold text-slate-900 dark:text-white mt-2">5</p>
+</div>
+</div>
+<!-- Filters & Actions -->
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-white dark:bg-sidebar-dark p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+<div class="relative flex-1 md:flex-initial md:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Search patient name or ID..." type="text"/>
+</div>
+<div class="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+<select class="px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer min-w-[120px]">
+<option>All Risks</option>
+<option>High Risk</option>
+<option>Medium Risk</option>
+<option>Low Risk</option>
+</select>
+<select class="px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer min-w-[140px]">
+<option>All Procedures</option>
+<option>Knee Replacement</option>
+<option>Hip Resurfacing</option>
+<option>Shoulder Arthroscopy</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto justify-end">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                            Filter
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors shadow-sm shadow-primary/30">
+<span class="material-symbols-outlined text-[18px]">checklist</span>
+                            Bulk Approve
+                        </button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-white dark:bg-sidebar-dark rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider w-16">Priority</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Patient Name / ID</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Procedure</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Risk Score</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Wait Time</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+<!-- Row 1 - High Risk -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center justify-center size-8 rounded-full bg-red-100 dark:bg-red-900/30">
+<div class="size-3 rounded-full bg-red-600 shadow-sm shadow-red-500/50"></div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-700 bg-center bg-cover" data-alt="Patient Jane Doe" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdmaXcVg0LRzVJFFFrVepKt9yZv9kZnk6cX2hXyLtXhxbnnWYbw20hG5ZzygoSPzfRWNkrRGFTSGcSuvPhuGbwUXsCUfTxU1wLoE-W5bb8byESZgQehEto3Wcc4Exrq7e2on-6f_c6Y584KXGAZ8yjsnJzYiQanoVYEGtJs3r5SbIixR-J9kcxp0wCwSd8V5kCyYur_7mO5InnzITer-_vHaYUEL7qIahxKlv5E9qpdkJt4TvCfA1Nkxpm_rWnJIdj3WeiMLUB0fB9');"></div>
+<div>
+<div class="text-sm font-semibold text-slate-900 dark:text-white">Jane Doe</div>
+<div class="text-xs text-slate-500 dark:text-slate-400">ID: #PT-8832</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-slate-700 dark:text-slate-300">Total Knee Replacement</div>
+<div class="text-xs text-slate-500 dark:text-slate-400">Dr. House • Surgery Oct 20</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">
+                                            High
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm font-medium text-slate-900 dark:text-white">2 Days</div>
+<div class="text-xs text-red-500 font-medium">Overdue</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<button class="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-blue-700 dark:hover:text-blue-400 transition-colors">
+                                            Go to plan
+                                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 - Medium Risk -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center justify-center size-8 rounded-full bg-orange-100 dark:bg-orange-900/30">
+<div class="size-3 rounded-full bg-orange-500 shadow-sm shadow-orange-500/50"></div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-700 bg-center bg-cover" data-alt="Patient John Smith" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB3glhbOKWWVVPzqLdi7o1RVTHhCmV8EfBXqe4qDHBzjP-vPPlZZb5lG55gBSxb0oKvdnuEvJWCPaX52_ro7eSogGkdrGB0_Au3_2MMPjYMPVttL9bvo-aCQR8Z_yfIpA2MiS1gHy2zpLw6wwYSMccQGaj82Uj06YPF4-NNcQ_nAzQ-67qwQqyKlrlHJyybm_bVePAUMbvnttJtdPj_-WR4Pcl6-_N0PdsYXmhMo4NP6H5F-FC8p1DjW68HmlA9zQEmp6ZZakKnx_Dd');"></div>
+<div>
+<div class="text-sm font-semibold text-slate-900 dark:text-white">John Smith</div>
+<div class="text-xs text-slate-500 dark:text-slate-400">ID: #PT-9941</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-slate-700 dark:text-slate-300">Hip Resurfacing</div>
+<div class="text-xs text-slate-500 dark:text-slate-400">Dr. Wilson • Surgery Oct 22</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400">
+                                            Moderate
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm font-medium text-slate-900 dark:text-white">1 Day</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<button class="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-blue-700 dark:hover:text-blue-400 transition-colors">
+                                            Go to plan
+                                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 - Low Risk -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center justify-center size-8 rounded-full bg-yellow-100 dark:bg-yellow-900/30">
+<div class="size-3 rounded-full bg-yellow-400 shadow-sm shadow-yellow-400/50"></div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-700 bg-center bg-cover" data-alt="Patient Alan Wake" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA6WePvcdJw112EMU9uL193bhfst-M3peiAbPemNLVaHOSUYg2JFeSirqJK3YZRnwbvmzQx1tGZaMEMKKhDAFCaYqJSyhc91RNMSty55ucvlUXmXrlyEp-rEhWvIy-CdSvcE3_tw8395Aj02R25NaspFEkpHmxasCVWu2UvDJRQ7OfKZSbAMzvY5WSZVnHXN-qKpVcuJOe_DJyiCdR3vcYk6cxAxl80Hk8ePJZMSE2Fz_K8JJjmCLGYvyupx_o_KxyIYSF9oPwCQ1SC');"></div>
+<div>
+<div class="text-sm font-semibold text-slate-900 dark:text-white">Alan Wake</div>
+<div class="text-xs text-slate-500 dark:text-slate-400">ID: #PT-4521</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-slate-700 dark:text-slate-300">Shoulder Arthroscopy</div>
+<div class="text-xs text-slate-500 dark:text-slate-400">Dr. Chase • Surgery Oct 24</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                                            Low
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm font-medium text-slate-900 dark:text-white">4 Hrs</div>
+<div class="text-xs text-emerald-500 font-medium">New</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<button class="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-blue-700 dark:hover:text-blue-400 transition-colors">
+                                            Go to plan
+                                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 - High Risk -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center justify-center size-8 rounded-full bg-red-100 dark:bg-red-900/30">
+<div class="size-3 rounded-full bg-red-600 shadow-sm shadow-red-500/50"></div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-700 bg-center bg-cover" data-alt="Patient Sarah Conner" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAu_2HWEusM2WMDuNUQGJg89XNXviwh-IKgA90BekEl1FVufT5r4fWJlMsHGtE9EzpSfGZVhKbbyDiO41agp4ZI_-uvjcD_MG30uV3dr1thvyLiqdTRt_6LynQFnG75ghMGoser2OinY-zUtqZw3CfmYqNGZh0BgFPcwLGweOkm2H1B6U5DbphE6gCFXtAB2pK3XKsat5RAlc_x2HTJoWMF4AjnDoeoyG3CxQk4spz0NEc3EykehRKVH88USpY-mLWwsUlzFRFf7JD3');"></div>
+<div>
+<div class="text-sm font-semibold text-slate-900 dark:text-white">Sarah Conner</div>
+<div class="text-xs text-slate-500 dark:text-slate-400">ID: #PT-2029</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-slate-700 dark:text-slate-300">Spinal Fusion</div>
+<div class="text-xs text-slate-500 dark:text-slate-400">Dr. Silberman • Surgery Oct 19</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">
+                                            High
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm font-medium text-slate-900 dark:text-white">3 Days</div>
+<div class="text-xs text-red-500 font-medium">Attention Needed</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<button class="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-blue-700 dark:hover:text-blue-400 transition-colors">
+                                            Go to plan
+                                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 - Medium Risk -->
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center justify-center size-8 rounded-full bg-orange-100 dark:bg-orange-900/30">
+<div class="size-3 rounded-full bg-orange-500 shadow-sm shadow-orange-500/50"></div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-700 bg-center bg-cover" data-alt="Patient David Kim" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCTJHH0iDwg8F4MEkTC-qjTqxKAU8bzOR80K7Qtp8238xrUHFzRpMORgdYB7WzhqpEqF1cAE5OorL2h9APSE49UmIJI4tJVt8D1yKnXy9XypnHrLh4aw7A--UhI0zrEedUWtWNTuDqm9ontAHqqjfGcPuRaMQ5xLoS4HGgyCioCO2_RJjIW2tRS_ka6thjwIsu_ZX4tojKPPEIzUoHgLiN1s7fDMkLO4fjYgPqefEdlmw5wLykmQJ45Hy3uc9m31AdE3h-EyEcHBPjt');"></div>
+<div>
+<div class="text-sm font-semibold text-slate-900 dark:text-white">David Kim</div>
+<div class="text-xs text-slate-500 dark:text-slate-400">ID: #PT-7742</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-slate-700 dark:text-slate-300">ACL Reconstruction</div>
+<div class="text-xs text-slate-500 dark:text-slate-400">Dr. Yang • Surgery Oct 23</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400">
+                                            Moderate
+                                        </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm font-medium text-slate-900 dark:text-white">6 Hrs</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<button class="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-blue-700 dark:hover:text-blue-400 transition-colors">
+                                            Go to plan
+                                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between border-t border-slate-200 dark:border-slate-800 px-6 py-4 bg-slate-50 dark:bg-slate-800/30">
+<div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+<div>
+<p class="text-sm text-slate-700 dark:text-slate-400">
+                                    Showing <span class="font-medium text-slate-900 dark:text-white">1</span> to <span class="font-medium text-slate-900 dark:text-white">5</span> of <span class="font-medium text-slate-900 dark:text-white">12</span> results
+                                </p>
+</div>
+<div>
+<nav aria-label="Pagination" class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+<a class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700" href="#">
+<span class="sr-only">Previous</span>
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</a>
+<a aria-current="page" class="z-10 bg-primary/10 border-primary text-primary relative inline-flex items-center px-4 py-2 border text-sm font-bold" href="#">1</a>
+<a class="bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 relative inline-flex items-center px-4 py-2 border text-sm font-medium" href="#">2</a>
+<a class="bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 relative inline-flex items-center px-4 py-2 border text-sm font-medium" href="#">3</a>
+<a class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700" href="#">
+<span class="sr-only">Next</span>
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

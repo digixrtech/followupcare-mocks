@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Check-in Flow Step 3</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7bb979",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#161c16",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .battery-fill {
+            transition: height 0.3s ease;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#121712] dark:text-white min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between p-4 bg-background-light dark:bg-background-dark">
+<button class="flex items-center justify-center size-10 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-2xl">arrow_back_ios_new</span>
+</button>
+<div class="flex-1 flex flex-col items-center gap-1">
+<span class="text-xs font-semibold text-gray-500 uppercase tracking-widest">Step 3 of 5</span>
+</div>
+<div class="size-10"></div> <!-- Spacer for balance -->
+</header>
+<!-- Progress Bar -->
+<div class="px-6 py-2">
+<div class="h-1.5 w-full bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 60%;"></div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col items-center px-6 pt-8 pb-12 max-w-md mx-auto w-full">
+<!-- Headline -->
+<h1 class="text-[20px] font-bold text-center mb-12">What is your energy level?</h1>
+<!-- Energy Visualization -->
+<div class="relative w-40 h-64 mb-12 flex flex-col items-center justify-center">
+<!-- Battery Outline Container -->
+<div class="relative w-32 h-56 border-[6px] border-gray-300 dark:border-gray-600 rounded-[2rem] p-1.5 overflow-hidden">
+<!-- Battery Cap -->
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-10 h-3 bg-gray-300 dark:bg-gray-600 rounded-t-md"></div>
+<!-- Fill Level (Dynamic) -->
+<div class="absolute bottom-0 left-0 w-full bg-primary/20 flex flex-col justify-end" style="height: 100%;">
+<div class="w-full bg-primary rounded-t-lg transition-all duration-300" style="height: 60%;"></div>
+</div>
+<!-- Bolt Icon Overlay -->
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-6xl text-[#121712] dark:text-white mix-blend-overlay opacity-80" style="font-variation-settings: 'FILL' 1">bolt</span>
+</div>
+</div>
+<!-- Value Bubble -->
+<div class="absolute -right-4 top-1/2 -translate-y-1/2 bg-primary text-white size-14 rounded-full flex items-center justify-center text-2xl font-bold shadow-lg border-4 border-background-light dark:border-background-dark">
+                6
+            </div>
+</div>
+<!-- Slider Component -->
+<div class="w-full space-y-6">
+<div class="relative w-full h-8 flex items-center">
+<!-- Custom Slider Track -->
+<div class="absolute w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+<div class="absolute h-2 bg-primary rounded-full" style="width: 60%;"></div>
+<!-- Slider Thumb (Positioned at 6/10) -->
+<div class="absolute size-8 bg-white dark:bg-gray-200 border-4 border-primary rounded-full shadow-md z-10 cursor-pointer" style="left: calc(60% - 16px);"></div>
+</div>
+<div class="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-400 px-1">
+<span>Very Low</span>
+<span>Highly Energized</span>
+</div>
+</div>
+<!-- Descriptive Quote -->
+<p class="mt-8 text-center text-gray-500 dark:text-gray-400 text-sm italic px-4">
+            "I have enough energy for my daily activities, but I'm not feeling peak performance today."
+        </p>
+</main>
+<!-- Bottom Action Area -->
+<footer class="p-6 bg-background-light dark:bg-background-dark mt-auto">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl text-lg shadow-sm transition-all active:scale-[0.98]">
+            Next
+        </button>
+</footer>
+<!-- Image for Context (Optional if required by constraints) -->
+<div class="hidden">
+<div class="w-full h-1 bg-cover bg-center" data-alt="Abstract green pattern representing vitality" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBCG9Nb1XttOiS7O7nY6z2tzeB5VshxrUOlDqC34NzDQBHSRFa3y46tfrxsj_1ibGivXBkUaht1IQ4-2R-HVMJFhTWSEayD9Aa3cexHQZAhJO1h8DD8tH3HAklXzutyVIWprHQT5ZXzBfM8u6LdAiJ2belJYYULf7Y0_oxv2dshTYlAzKbPJUvI4RvC6wTKWjHdzTv1UKtv637UfpclV6SY1Op-M6avArOfb9FRKp4geLSfEeHNyucA52KRQ5TSzbGbyj8h8ph6UtPg");'></div>
+</div>
+</body></html>

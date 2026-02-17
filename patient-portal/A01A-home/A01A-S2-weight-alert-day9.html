@@ -1,0 +1,262 @@
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#E6A84E",
+                        "primary-dark": "#B8860B",
+                        "background-light": "#F8F8F8",
+                        "background-dark": "#121212",
+                        "sage-green": "#748C70",
+                        "soft-blue": "#E3F2FD",
+                        "soft-blue-text": "#1976D2"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "card": "12px",
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        :root {
+            --warm-amber: #E6A84E;
+            --sage-green: #748C70;
+        }
+        .ios-card-shadow {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        .glass-brand {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#F8F8F8] dark:bg-zinc-950 text-[#1b160e] dark:text-white min-h-screen pb-28">
+<header class="sticky top-0 z-50 bg-[#F8F8F8]/80 backdrop-blur-md pt-4 px-4 pb-2">
+<div class="flex items-center justify-between h-[42px] mb-3">
+<div class="glass-brand flex items-center gap-2.5 px-3 py-1.5 rounded-full shadow-sm">
+<div class="size-[28px] flex items-center justify-center rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-[16px]">medical_services</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-bold leading-none tracking-tight">RIVERSIDE</span>
+<span class="text-[8px] font-medium leading-none text-zinc-500 uppercase">Medical Center</span>
+</div>
+</div>
+<div class="relative flex items-center justify-center size-[42px]">
+<svg class="size-[42px] transform -rotate-90">
+<circle class="text-zinc-200 dark:text-zinc-800" cx="21" cy="21" fill="transparent" r="18" stroke="currentColor" stroke-width="3"></circle>
+<circle class="text-primary" cx="21" cy="21" fill="transparent" r="18" stroke="currentColor" stroke-dasharray="113.1" stroke-dashoffset="101.8" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-[12px] font-bold leading-none">9</span>
+<span class="text-[6px] font-bold text-zinc-400 uppercase leading-none">Day</span>
+</div>
+<div class="absolute top-0 right-0 size-[7px] bg-primary border-2 border-white dark:border-zinc-900 rounded-full"></div>
+</div>
+</div>
+</header>
+<main class="px-4 flex flex-col gap-3">
+<div class="flex items-center justify-between px-0.5">
+<h2 class="text-[22px] font-bold tracking-tight">Good morning, Robert ☀️</h2>
+<button class="size-[32px] flex items-center justify-end text-zinc-400">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+</button>
+</div>
+<div class="flex">
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-200/60 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 text-xs font-medium">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                Today's check-in complete
+            </div>
+</div>
+<div class="bg-[#E6A84E]/10 rounded-[12px] p-4 border border-[#E6A84E]/20 ios-card-shadow">
+<div class="flex justify-between items-center gap-4">
+<div class="flex flex-col gap-1 flex-1">
+<div class="flex items-center gap-2 mb-0.5">
+<span class="material-symbols-outlined text-primary text-[20px]">warning</span>
+<span class="text-[10px] font-bold uppercase tracking-wider text-[#B8860B]">URGENT ALERT</span>
+</div>
+<h3 class="text-[17px] font-bold text-zinc-800 dark:text-zinc-100 leading-tight">Fluid retention detected</h3>
+<p class="text-[13px] text-zinc-600 dark:text-zinc-300 leading-snug mt-0.5">
+                        Your weight increased by 3 lbs since Day 7. This is common and treatable.
+                    </p>
+</div>
+<div class="w-[70px] h-[35px] shrink-0">
+<svg class="w-full h-full overflow-visible" viewBox="0 0 80 40">
+<path d="M0,35 Q20,33 40,20 T80,5" fill="none" stroke="#E6A84E" stroke-linecap="round" stroke-width="3"></path>
+<circle cx="0" cy="35" fill="#E6A84E" r="2.5"></circle>
+<circle cx="40" cy="20" fill="#E6A84E" r="2.5"></circle>
+<circle cx="80" cy="5" fill="#E6A84E" r="3.5"></circle>
+</svg>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-zinc-900 rounded-[12px] p-4 ios-card-shadow flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-[40px] rounded-full border-2 border-[var(--warm-amber)] overflow-hidden shrink-0">
+<img alt="Nurse Sarah" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtkk7CaqewFIzbgtqTM6MgFg2CWGKVZ8L-xbhtrLpoaJFwLbMxTjTcXckHYUpE-VXzpSAlnWf4QwFEa20R6BFVfDS3jmUqU-EnaF3xrvwNeQvXbYJKCyDtYlw6Ckt1q_qmRnLHmM--EqBIqXkueYwgzURc_YSfiYAUQAzirLTRvXn16ExHe8lzqfoohFYMzFqWRxwQa6ERajK9H9X0v9eMSXLJZvhMhJHCgiPnZXZkfoYmEHHp3K64r2QCtvIG9mKfsQzvwHMnmJMB"/>
+</div>
+<span class="text-[14px] font-bold">Care Team Action</span>
+</div>
+<span class="material-symbols-outlined text-[var(--warm-amber)] text-[24px]">call</span>
+</div>
+<div class="pl-[52px]">
+<p class="text-[13px] text-zinc-600 dark:text-zinc-300 leading-tight">
+                    Nurse Sarah will call you within 30 minutes to discuss next steps.
+                </p>
+</div>
+<div class="flex justify-end pr-0">
+<button class="text-[12px] font-bold text-[var(--warm-amber)] flex items-center gap-1 uppercase tracking-tight">
+                    VIEW CARE TEAM <span class="text-[16px]">→</span>
+</button>
+</div>
+</div>
+<section>
+<h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-2.5 px-0.5">QUICK STATS</h3>
+<div class="flex gap-3 h-[104px]">
+<div class="flex-1 bg-white dark:bg-zinc-900 rounded-[12px] p-3 ios-card-shadow border-[1.5px] border-[#E6A84E] flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-[#E6A84E] text-[20px] mb-1">trending_up</span>
+<div class="text-[17px] font-bold leading-tight">225 lbs</div>
+<div class="text-[8px] font-bold text-[#E6A84E] uppercase tracking-wide mt-1">WEIGHT (+3)</div>
+</div>
+<div class="flex-1 bg-white dark:bg-zinc-900 rounded-[12px] p-3 ios-card-shadow flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-rose-500 text-[20px] mb-1 fill-rose-500">favorite</span>
+<div class="text-[17px] font-bold leading-tight">72 bpm</div>
+<div class="text-[8px] font-bold text-zinc-400 uppercase tracking-wide mt-1">HEART RATE</div>
+</div>
+<div class="flex-1 bg-white dark:bg-zinc-900 rounded-[12px] p-3 ios-card-shadow flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-blue-500 text-[20px] mb-1">air</span>
+<div class="text-[17px] font-bold leading-tight">98%</div>
+<div class="text-[8px] font-bold text-zinc-400 uppercase tracking-wide mt-1">OXYGEN</div>
+</div>
+</div>
+</section>
+<section class="bg-white dark:bg-zinc-900 rounded-[12px] ios-card-shadow overflow-hidden flex flex-col">
+<div class="p-4 flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800">
+<div class="flex flex-col">
+<h3 class="text-[16px] font-bold">Daily Tasks</h3>
+<div class="flex items-center gap-2 mt-0.5">
+<div class="size-[14px] border-[1.5px] border-zinc-200 rounded-full"></div>
+<span class="text-[12px] text-zinc-500">5 tasks remaining today</span>
+</div>
+</div>
+<button class="text-sage-green font-bold text-[12px] flex items-center gap-1 uppercase">
+                    View
+                    <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+<div class="p-4 space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-[36px] bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px] text-zinc-600 dark:text-zinc-400">blood_pressure</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[14px] font-semibold leading-none">Blood pressure</span>
+<span class="text-[11px] text-zinc-400 mt-1">After nurse call</span>
+</div>
+</div>
+<button class="bg-soft-blue text-soft-blue-text w-[80px] py-1.5 rounded-full text-[13px] font-bold text-center">+ Log</button>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-[36px] bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px] text-zinc-600 dark:text-zinc-400">healing</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[14px] font-semibold leading-none">Wound check</span>
+<span class="text-[11px] text-zinc-400 mt-1">Due 9:00 AM</span>
+</div>
+</div>
+<button class="border border-sage-green text-sage-green w-[80px] py-1.5 rounded-full text-[13px] font-bold text-center">✓ Done</button>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-[36px] bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px] text-zinc-600 dark:text-zinc-400">directions_walk</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[14px] font-semibold leading-none">15-min walk</span>
+<span class="text-[11px] text-zinc-400 mt-1">Anytime</span>
+</div>
+</div>
+<button class="border border-sage-green text-sage-green w-[80px] py-1.5 rounded-full text-[13px] font-bold text-center">✓ Done</button>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-[36px] bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px] text-zinc-600 dark:text-zinc-400">glucose</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[14px] font-semibold leading-none">Blood sugar</span>
+<span class="text-[11px] text-zinc-400 mt-1">2:00 PM</span>
+</div>
+</div>
+<button class="bg-soft-blue text-soft-blue-text w-[80px] py-1.5 rounded-full text-[13px] font-bold text-center">+ Log</button>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-[36px] bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px] text-zinc-600 dark:text-zinc-400">medication</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[14px] font-semibold leading-none">Evening meds</span>
+<span class="text-[11px] text-zinc-400 mt-1">6:00 PM</span>
+</div>
+</div>
+<button class="border border-sage-green text-sage-green w-[80px] py-1.5 rounded-full text-[13px] font-bold text-center">✓ Taken</button>
+</div>
+</div>
+<div class="bg-zinc-50 dark:bg-zinc-800/40 p-3 text-center border-t border-zinc-100 dark:border-zinc-800">
+<p class="text-[11px] text-zinc-400 font-medium">✓ 3 completed: Weight, glucose, morning meds</p>
+</div>
+</section>
+<button class="w-full bg-[#E6A84E] text-white font-bold py-4 rounded-[12px] text-sm shadow-md transition-transform active:scale-[0.98] mt-1 mb-6">
+            Monitor symptoms
+        </button>
+</main>
+<nav class="fixed bottom-0 left-0 right-0 h-[68px] bg-white dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 px-8 flex justify-between items-center z-50 pb-2 shadow-[0_-1px_10px_rgba(0,0,0,0.02)]">
+<button class="w-[60px] flex flex-col items-center gap-0.5 text-primary">
+<span class="material-symbols-outlined text-[26px]">home</span>
+<span class="text-[10px] font-bold text-center w-full">Home</span>
+</button>
+<button class="w-[60px] flex flex-col items-center gap-0.5 text-zinc-400">
+<span class="material-symbols-outlined text-[26px]">analytics</span>
+<span class="text-[10px] font-medium text-center w-full">Vitals</span>
+</button>
+<button class="w-[60px] flex flex-col items-center gap-0.5 text-zinc-400 relative">
+<span class="material-symbols-outlined text-[26px]">chat_bubble</span>
+<span class="text-[10px] font-medium text-center w-full">Messages</span>
+<span class="absolute top-0 right-3 size-2 bg-primary rounded-full border-2 border-white dark:border-zinc-950"></span>
+</button>
+<button class="w-[60px] flex flex-col items-center gap-0.5 text-zinc-400">
+<span class="material-symbols-outlined text-[26px]">person</span>
+<span class="text-[10px] font-medium text-center w-full">Profile</span>
+</button>
+</nav>
+<div class="fixed bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-zinc-300 dark:bg-zinc-700 rounded-full pointer-events-none z-50"></div>
+
+</body></html>

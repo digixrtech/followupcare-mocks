@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Tasks Alert Full List View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7CB97A",
+                        "sage": "#7CB97A",
+                        "amber-warm": "#E6A84E",
+                        "background-light": "#F8F8F8",
+                        "background-dark": "#161c16",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "card": "12px",
+                    },
+                    boxShadow: {
+                        "soft": "0 2px 8px rgba(0,0,0,0.06)"
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-[#F8F8F8] dark:bg-background-dark font-display text-[#121712] antialiased leading-relaxed;
+                min-height: 100dvh;
+            }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+        .header-gradient {
+            background: linear-gradient(to bottom, #FFFFFF 0%, #F8F8F8 100%);
+        }
+        .safe-top {
+            padding-top: env(safe-area-inset-top);
+        }
+        .safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .nav-tab {
+            @apply flex flex-col items-center justify-center h-[64px] flex-1;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body>
+<div class="relative flex h-screen w-full flex-col max-w-[430px] mx-auto overflow-hidden shadow-2xl bg-[#F8F8F8] dark:bg-background-dark">
+<header class="header-gradient px-4 safe-top flex flex-col shrink-0">
+<div class="flex items-center justify-between mt-[24px]">
+<div class="glass-card flex items-center gap-2 p-1.5 pr-4 rounded-card shadow-sm">
+<div class="size-8 bg-sage rounded-[8px] flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-white text-[20px] filled">local_hospital</span>
+</div>
+<div class="flex flex-col justify-center">
+<span class="text-[13px] font-bold tracking-tight text-gray-800 dark:text-gray-100 leading-tight uppercase">Riverside</span>
+<span class="text-[11px] font-medium text-gray-500 dark:text-gray-400 leading-tight">Medical Center</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="relative size-11">
+<svg class="size-11" viewBox="0 0 44 44">
+<circle class="text-gray-200 dark:text-gray-800" cx="22" cy="22" fill="transparent" r="19" stroke="currentColor" stroke-width="3"></circle>
+<circle class="text-sage" cx="22" cy="22" fill="transparent" r="19" stroke="currentColor" stroke-dasharray="119.38" stroke-dashoffset="100.8" stroke-linecap="round" stroke-width="3" style="transform: rotate(-90deg); transform-origin: 50% 50%;"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="text-[14px] font-bold text-gray-800 dark:text-gray-200">9</span>
+</div>
+</div>
+<span class="text-[12px] font-medium text-gray-400 uppercase tracking-wide">Day</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4 pb-4">
+<h1 class="text-[18px] font-semibold text-gray-900 dark:text-white tracking-tight leading-relaxed">Good morning, Robert ☀️</h1>
+<button class="size-[32px] flex items-center justify-center ml-4">
+<span class="material-symbols-outlined text-gray-400 text-[22px]">settings</span>
+</button>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto pb-[114px] flex flex-col gap-[12px]">
+<div class="px-4 shrink-0">
+<div class="bg-white dark:bg-gray-900 rounded-card border-l-[4px] border-amber-warm shadow-soft overflow-hidden">
+<div class="p-4">
+<div class="flex items-center gap-1.5 mb-3">
+<span class="material-symbols-outlined text-amber-warm text-[18px] filled">warning</span>
+<span class="text-[12px] font-bold text-amber-warm uppercase tracking-wider">Priority Task</span>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[#E15A5A] text-[24px] shrink-0 mt-0.5 filled">favorite</span>
+<div class="flex-1 flex flex-col gap-1">
+<h2 class="text-[16px] font-bold text-gray-900 dark:text-white leading-snug">Blood pressure check after nurse call</h2>
+<p class="text-[14px] text-gray-500 dark:text-gray-400 leading-normal">
+                                    Your nurse asked you to check your blood pressure after your call. This helps us monitor your fluid levels.
+                                </p>
+</div>
+</div>
+<div class="flex justify-end mt-4">
+<button class="bg-amber-warm text-white px-5 py-2.5 rounded-lg text-[14px] font-bold shadow-sm active:opacity-90 transition-opacity flex items-center gap-1.5">
+                                + Log BP <span class="text-[16px]">→</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4">
+<div class="h-[56px] w-full bg-white dark:bg-gray-900 rounded-card shadow-soft flex items-center px-3 border border-gray-100/50 dark:border-gray-800">
+<div class="relative size-10 shrink-0 mr-3">
+<svg class="size-10" viewBox="0 0 40 40">
+<circle class="text-gray-100 dark:text-gray-800" cx="20" cy="20" fill="transparent" r="17" stroke="currentColor" stroke-width="3"></circle>
+<circle class="text-sage" cx="20" cy="20" fill="transparent" r="17" stroke="currentColor" stroke-dasharray="106.8" stroke-dashoffset="66.7" stroke-linecap="round" stroke-width="3" style="transform: rotate(-90deg); transform-origin: 50% 50%;"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="text-[11px] font-bold text-gray-800 dark:text-gray-200">3/8</span>
+</div>
+</div>
+<p class="text-[14px] font-medium text-gray-700 dark:text-gray-300">
+                        3 of 8 tasks complete • <span class="text-amber-warm font-bold">1 needs attention</span>
+</p>
+</div>
+</div>
+<div class="overflow-x-auto hide-scrollbar px-4 flex gap-2">
+<button class="whitespace-nowrap px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded-full text-[13px] font-bold text-gray-900 dark:text-white">All (8)</button>
+<button class="whitespace-nowrap px-4 py-2 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-full text-[13px] font-medium text-gray-500 dark:text-gray-400">Medications (3)</button>
+<button class="whitespace-nowrap px-4 py-2 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-full text-[13px] font-medium text-gray-500 dark:text-gray-400">Monitoring (4)</button>
+<button class="whitespace-nowrap px-4 py-2 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-full text-[13px] font-medium text-gray-500 dark:text-gray-400">Activity (1)</button>
+</div>
+<div class="flex flex-col">
+<div class="px-4 pb-3 flex items-center gap-2">
+<h3 class="text-[14px] font-bold text-gray-400 uppercase tracking-wider">Today's Tasks (5)</h3>
+<div class="size-2 bg-amber-warm rounded-full"></div>
+</div>
+<div class="flex flex-col">
+<div class="h-[72px] flex items-center justify-between px-4 bg-white dark:bg-gray-900 border-b border-gray-50 dark:border-gray-800/50">
+<div class="flex items-center gap-3">
+<div class="size-6 border-2 border-sage rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-sage text-[18px] font-bold">check</span>
+</div>
+<span class="material-symbols-outlined text-gray-400 text-[20px]">content_paste_search</span>
+<div class="flex flex-col">
+<span class="text-[15px] font-semibold text-gray-900 dark:text-white">Wound self-inspection</span>
+<span class="text-[12px] text-gray-400">Due 9:00 AM</span>
+</div>
+</div>
+<button class="border border-sage text-sage px-3 py-1.5 rounded-lg text-[13px] font-bold">✓ Done</button>
+</div>
+<div class="h-[72px] flex items-center justify-between px-4 bg-white dark:bg-gray-900 border-b border-gray-50 dark:border-gray-800/50">
+<div class="flex items-center gap-3">
+<div class="size-6 border-2 border-sage rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-sage text-[18px] font-bold">check</span>
+</div>
+<span class="material-symbols-outlined text-gray-400 text-[20px]">directions_walk</span>
+<div class="flex flex-col">
+<span class="text-[15px] font-semibold text-gray-900 dark:text-white">15-minute walk</span>
+<span class="text-[12px] text-gray-400">Anytime today</span>
+</div>
+</div>
+<button class="border border-sage text-sage px-3 py-1.5 rounded-lg text-[13px] font-bold">✓ Done</button>
+</div>
+<div class="h-[72px] flex items-center justify-between px-4 bg-white dark:bg-gray-900 border-b border-gray-50 dark:border-gray-800/50">
+<div class="flex items-center gap-3">
+<div class="size-6 border-2 border-gray-200 dark:border-gray-700 rounded-full"></div>
+<span class="material-symbols-outlined text-gray-400 text-[20px]">blood_pressure</span>
+<div class="flex flex-col">
+<span class="text-[15px] font-semibold text-gray-900 dark:text-white">Afternoon blood sugar</span>
+<span class="text-[12px] text-gray-400">2:00 PM</span>
+</div>
+</div>
+<button class="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 px-4 py-1.5 rounded-lg text-[13px] font-bold">+ Log</button>
+</div>
+<div class="h-[72px] flex items-center justify-between px-4 bg-white dark:bg-gray-900 border-b border-gray-50 dark:border-gray-800/50">
+<div class="flex items-center gap-3">
+<div class="size-6 border-2 border-sage rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-sage text-[18px] font-bold">check</span>
+</div>
+<span class="material-symbols-outlined text-gray-400 text-[20px]">medication</span>
+<div class="flex flex-col">
+<span class="text-[15px] font-semibold text-gray-900 dark:text-white">Evening medications</span>
+<span class="text-[12px] text-gray-400">6:00 PM</span>
+</div>
+</div>
+<button class="border border-sage text-sage px-3 py-1.5 rounded-lg text-[13px] font-bold">✓ Taken</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col mt-2">
+<div class="px-4 py-4 bg-white/40 border-b border-gray-100">
+<div class="flex items-center justify-between text-[14px] font-bold">
+<div class="flex items-center gap-2 text-sage uppercase tracking-wider">
+<span>✓ COMPLETED (3)</span>
+</div>
+<button class="text-gray-400 font-medium tracking-tight flex items-center gap-1">
+<span class="text-[12px]">▲ Hide</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="h-[72px] flex items-center justify-between px-4 bg-white dark:bg-gray-900 border-b border-gray-50 dark:border-gray-800/50">
+<div class="flex items-center gap-3">
+<div class="relative">
+<span class="material-symbols-outlined text-gray-400 text-[24px]">scale</span>
+<div class="absolute -bottom-1 -right-1 size-4 bg-sage rounded-full border-2 border-white dark:border-gray-900 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[10px] font-bold">check</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-[15px] font-semibold text-gray-900 dark:text-white">Weight check</span>
+<span class="text-[12px] text-gray-400">7:15 AM</span>
+</div>
+</div>
+<span class="text-[14px] font-bold text-amber-warm flex items-center gap-1">225 lbs ⚠️</span>
+</div>
+<div class="h-[72px] flex items-center justify-between px-4 bg-white dark:bg-gray-900 border-b border-gray-50 dark:border-gray-800/50">
+<div class="flex items-center gap-3">
+<div class="relative">
+<span class="material-symbols-outlined text-gray-400 text-[24px]">blood_pressure</span>
+<div class="absolute -bottom-1 -right-1 size-4 bg-sage rounded-full border-2 border-white dark:border-gray-900 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[10px] font-bold">check</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-[15px] font-semibold text-gray-900 dark:text-white">Fasting blood sugar</span>
+<span class="text-[12px] text-gray-400">7:20 AM</span>
+</div>
+</div>
+<span class="text-[14px] font-medium text-gray-500">142 mg/dL</span>
+</div>
+<div class="h-[72px] flex items-center justify-between px-4 bg-white dark:bg-gray-900 border-b border-gray-50 dark:border-gray-800/50">
+<div class="flex items-center gap-3">
+<div class="relative">
+<span class="material-symbols-outlined text-gray-400 text-[24px]">medication</span>
+<div class="absolute -bottom-1 -right-1 size-4 bg-sage rounded-full border-2 border-white dark:border-gray-900 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[10px] font-bold">check</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-[15px] font-semibold text-gray-900 dark:text-white">Morning medications</span>
+<span class="text-[12px] text-gray-400">8:00 AM</span>
+</div>
+</div>
+<span class="text-[14px] font-medium text-gray-500">✓ Done</span>
+</div>
+</div>
+</div>
+</main>
+<nav class="absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 safe-bottom z-50">
+<div class="flex w-full h-[64px] items-center">
+<a class="nav-tab relative" href="#">
+<div class="relative">
+<span class="material-symbols-outlined text-gray-400 text-[26px]">home</span>
+<div class="absolute -top-0.5 -right-0.5 size-2 bg-amber-warm rounded-full border border-white dark:border-gray-900"></div>
+</div>
+<span class="text-[11px] font-medium text-gray-400 mt-1">Home</span>
+</a>
+<a class="nav-tab" href="#">
+<span class="material-symbols-outlined text-sage text-[26px] filled">assignment</span>
+<span class="text-[11px] font-semibold text-sage mt-1">Tasks</span>
+</a>
+<a class="nav-tab" href="#">
+<span class="material-symbols-outlined text-gray-400 text-[26px]">leaderboard</span>
+<span class="text-[11px] font-medium text-gray-400 mt-1">Progress</span>
+</a>
+<a class="nav-tab" href="#">
+<span class="material-symbols-outlined text-gray-400 text-[26px]">help</span>
+<span class="text-[11px] font-medium text-gray-400 mt-1">Help</span>
+</a>
+</div>
+<div class="h-[34px] w-full flex items-center justify-center">
+<div class="w-32 h-1 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+</div>
+</nav>
+</div>
+
+</body></html>

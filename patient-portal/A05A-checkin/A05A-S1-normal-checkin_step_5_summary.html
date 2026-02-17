@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Check-in Step 4: Completion Screen Refined</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --primary-sage: #7CB97A;
+            --background-light: #F8F7F5;
+        }
+        @layer base {
+            body {
+                font-family: 'Inter', sans-serif;
+                background-color: var(--background-light);
+            }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7CB97A",
+                        "background-light": "#F8F7F5",
+                        "sage-green": "#7CB97A",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light text-[#121712] min-h-screen flex flex-col">
+<header class="flex items-center justify-between p-4">
+<div class="size-10"></div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<span class="text-xs font-semibold text-gray-500 uppercase tracking-widest">Step 4 of 4</span>
+</div>
+<div class="size-10"></div>
+</header>
+<div class="px-6 py-2">
+<div class="h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 100%;"></div>
+</div>
+</div>
+<main class="flex-1 flex flex-col items-center px-6 pt-12 pb-8 max-w-md mx-auto w-full">
+<div class="w-16 h-16 bg-sage-green rounded-full flex items-center justify-center mb-6 shadow-sm">
+<span class="material-symbols-outlined text-white text-4xl font-bold">check</span>
+</div>
+<h1 class="text-[24px] font-semibold text-sage-green mb-8">You're all set!</h1>
+<div class="w-full bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-8">
+<h2 class="text-[14px] font-bold text-gray-400 tracking-wider mb-4 uppercase">Today's Check-in</h2>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-gray-400 text-xl">sentiment_satisfied</span>
+<span class="text-[16px] text-gray-700 font-medium">Pain</span>
+</div>
+<span class="text-[16px] font-semibold text-gray-900">4/10</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-gray-400 text-xl">battery_horiz_050</span>
+<span class="text-[16px] text-gray-700 font-medium">Energy</span>
+</div>
+<span class="text-[16px] font-semibold text-gray-900">5/10</span>
+</div>
+<div class="pt-2 border-t border-gray-50">
+<div class="flex items-center gap-2 text-sage-green">
+<span class="text-[16px] font-medium">No concerning symptoms</span>
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+</div>
+</div>
+</div>
+<p class="text-[16px] text-gray-600 text-center mb-10 leading-relaxed">
+            Everything looks good. Keep up the great work!
+        </p>
+<div class="flex items-center gap-3 bg-white/50 py-3 px-4 rounded-full border border-gray-100">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-gray-200">
+<img alt="Nurse Jennifer" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBysF_DfWdSSsq-bpYXak4lBPDUZXvRjx3XBjZkVG1t9ZcmLbJPso3G5jkaG2oZ47YiR_-_wQx4gOxsZvTzZvQbY_O_4XbV4nkV5Uxr-NkPJa4xFNfrWQ4IyKPje_uQKDcwXL1ea4y88nHvSQlgVge7uk5-15HeGaDwq4TPG-vGSgmw2t0t-QG_QA6fRdy1dcYsrAe7x_0Zq-XmHGoBYSK5NqUiPwIZ1YVUDyD1EDh4FrLAjQkBIp4f6CBd5mC2f01yRlMJPUBr713Q"/>
+</div>
+<p class="text-[14px] text-gray-600">
+                Nurse Jennifer will review your check-in today.
+            </p>
+</div>
+</main>
+<footer class="p-6 mt-auto flex flex-col items-center gap-4">
+<button class="w-full bg-sage-green hover:bg-opacity-90 text-white font-bold h-[56px] rounded-xl text-lg shadow-sm transition-all active:scale-[0.98]">
+            Done
+        </button>
+<button class="text-sage-green font-medium text-[16px] py-2">
+            [Add a note for your care team]
+        </button>
+</footer>
+<div class="hidden">
+<img alt="context" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCG9Nb1XttOiS7O7nY6z2tzeB5VshxrUOlDqC34NzDQBHSRFa3y46tfrxsj_1ibGivXBkUaht1IQ4-2R-HVMJFhTWSEayD9Aa3cexHQZAhJO1h8DD8tH3HAklXzutyVIWprHQT5ZXzBfM8u6LdAiJ2belJYYULf7Y0_oxv2dshTYlAzKbPJUvI4RvC6wTKWjHdzTv1UKtv637UfpclV6SY1Op-M6avArOfb9FRKp4geLSfEeHNyucA52KRQ5TSzbGbyj8h8ph6UtPg"/>
+</div>
+
+</body></html>

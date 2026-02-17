@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Depression Support Home - Final Polished</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "calm-purple": "#9B8AC4",
+                        "background-light": "#F8F7FA",
+                        "resource-bg": "#F0EEF5"
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style type="text/tailwindcss">
+        @keyframes heartPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .animate-heart-pulse-slow {
+            animation: heartPulse 3s ease-in-out infinite;
+        }
+        body {
+            background-color: #F8F7FA;
+            line-height: 1.6;
+        }
+        .safe-top {
+            padding-top: env(safe-area-inset-top);
+        }
+        .safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .card-shadow {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light text-[#141316] min-h-screen flex flex-col">
+<header class="safe-top sticky top-0 z-50 bg-background-light/90 backdrop-blur-md">
+<div class="pt-4 px-6 pb-4 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 bg-white/60 py-1.5 px-3 rounded-xl border border-white/40 shadow-sm">
+<div class="size-8 bg-calm-purple/20 rounded-lg flex items-center justify-center text-calm-purple">
+<span class="material-symbols-outlined text-[20px]">health_and_safety</span>
+</div>
+<span class="text-[#141316] text-sm font-bold tracking-tight">Riverside Medical</span>
+</div>
+<div class="relative flex flex-col items-center justify-center size-[44px]">
+<svg class="absolute inset-0 size-full -rotate-90">
+<circle class="text-neutral-200" cx="22" cy="22" fill="transparent" r="20" stroke="currentColor" stroke-width="2.5"></circle>
+<circle class="text-calm-purple" cx="22" cy="22" fill="transparent" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="35" stroke-linecap="round" stroke-width="2.5"></circle>
+</svg>
+<div class="flex flex-col items-center leading-none">
+<span class="text-[13px] font-bold text-neutral-600">42</span>
+<span class="text-[7px] font-bold text-neutral-400 uppercase tracking-tighter">Day</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<h1 class="text-[#141316] text-2xl font-semibold tracking-tight">Hi Robert</h1>
+<button class="text-neutral-400">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-1 px-4 flex flex-col gap-[12px] pb-32">
+<div class="bg-white rounded-[16px] border-l-[4px] border-l-calm-purple card-shadow overflow-hidden">
+<div class="p-5">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[32px] text-calm-purple fill-1 animate-heart-pulse-slow">favorite</span>
+<h2 class="text-[20px] font-semibold text-[#141316] leading-tight">We're here for you</h2>
+</div>
+<div class="w-[100px] h-[70px] bg-center bg-no-repeat bg-cover rounded-xl shrink-0 opacity-80" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB4MnNUfA-GoCs1r6JM6Mwtrin-2Zxh25cjvyFlNkR3ltsEwXFCoUvu7-48-47FLpK6QHrD2-iRxKNOkG8-BcPkBwhhtxYjG6S8jQRb74zcjIcz5jnMivc4z5xStq1jaLDbucLVD-XSN-guCfzEO_XjfjZ_YFlnbDDUuYThMDMZhD-oj-S8LpRrGszYq7BJchcoywwIPti0G4VDhTmgkZIsJQCYtIm-aXq8wHisYN1Mi6LJdaH9zAFT21F8vPMppIx6nT6G3qM2SjDm");'>
+</div>
+</div>
+<p class="text-[16px] text-neutral-500 font-normal leading-[1.6] mb-4">
+                It's completely normal to feel down during recovery. Many heart surgery patients experience this around this time.
+            </p>
+<div class="pt-4 border-t border-neutral-50">
+<p class="text-[16px] font-semibold text-calm-purple leading-[1.6]">
+                    You're not alone, and this feeling is temporary.
+                </p>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-2xl p-4 card-shadow border border-neutral-50">
+<div class="flex items-center gap-4">
+<div class="size-[48px] bg-center bg-no-repeat bg-cover rounded-full border-[3px] border-calm-purple shrink-0 shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA8OXGcsk3WjPsm4OnklSrR_q1VToCBN70S7IaQfG_trUhMjagFxrHkDb8mHmonsOllQmlMl_lFIIq6siC18UZ0HopCBdc9DqSclAy_bZPq6m9xOkA8z-HqbfgUnbAxavt6iVvwQCeoKZhxW94rEBTbQx3asIZ4VSQSIwaewW4Q9RGqLmg9aJx5UA57ivHU5P_bVnk9cBNN5TPIaRv1XqK54CNFuG5qa2GW_HI1V-pkO-R3kfxtsiKl8TLajgUBcD88RhPConxpwx_N");'></div>
+<div class="flex-1">
+<p class="text-[#141316] text-[16px] font-semibold leading-tight">Amanda will be calling you today</p>
+<p class="text-neutral-500 text-[14px] font-normal leading-normal">Just to check in and see how you're feeling.</p>
+</div>
+<div class="size-10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px] text-calm-purple">call</span>
+</div>
+</div>
+</div>
+<div class="pt-2">
+<div class="flex flex-col mb-3 px-1">
+<h3 class="text-neutral-500 text-[13px] font-bold tracking-[0.05em] uppercase">TODAY'S FOCUS</h3>
+<p class="text-neutral-400 text-[14px] italic">Just a few things when you're ready</p>
+</div>
+<div class="bg-white rounded-2xl border border-neutral-100 card-shadow overflow-hidden">
+<div class="flex items-center gap-4 p-4 border-b border-neutral-50">
+<div class="size-6 rounded-full border-2 border-neutral-200"></div>
+<p class="text-[#141316] text-base font-medium">Take your medications</p>
+</div>
+<div class="flex items-center gap-4 p-4 border-b border-neutral-50">
+<div class="size-6 rounded-full border-2 border-neutral-200"></div>
+<p class="text-[#141316] text-base font-medium">A short walk if you feel up to it</p>
+</div>
+<div class="flex items-center gap-4 p-4">
+<div class="size-6 rounded-full border-2 border-neutral-200"></div>
+<p class="text-[#141316] text-base font-medium">Evening check-in (whenever you're ready)</p>
+</div>
+</div>
+</div>
+<div class="bg-resource-bg rounded-2xl p-4 border border-calm-purple/10">
+<h3 class="text-neutral-500 text-[13px] font-bold tracking-[0.05em] uppercase mb-3 px-1">SUPPORT RESOURCES</h3>
+<div class="space-y-2">
+<div class="flex items-center justify-between h-[56px] bg-white rounded-xl px-4 card-shadow">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-calm-purple text-[22px]">bookmark_heart</span>
+<span class="text-[#141316] text-[15px] font-medium">Understanding post-surgery emotions</span>
+</div>
+<span class="material-symbols-outlined text-neutral-300">chevron_right</span>
+</div>
+<div class="flex items-center justify-between h-[56px] bg-white rounded-xl px-4 card-shadow">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-calm-purple text-[22px]">headphones</span>
+<span class="text-[#141316] text-[15px] font-medium">5-minute calming audio</span>
+</div>
+<span class="material-symbols-outlined text-neutral-300">chevron_right</span>
+</div>
+<div class="flex items-center justify-between h-[56px] bg-white rounded-xl px-4 card-shadow">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-calm-purple flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[18px] fill-1">chat_bubble</span>
+</div>
+<span class="text-[#141316] text-[15px] font-semibold">Talk to someone now</span>
+</div>
+<span class="material-symbols-outlined text-neutral-300">chevron_right</span>
+</div>
+</div>
+</div>
+</main>
+<nav class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-neutral-200 safe-bottom z-50">
+<div class="flex justify-around items-center h-[64px] px-2">
+<button class="flex flex-col items-center gap-1 text-calm-purple">
+<span class="material-symbols-outlined fill-1 text-[26px]">home</span>
+<span class="text-[10px] font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-neutral-400">
+<span class="material-symbols-outlined text-[26px]">assignment</span>
+<span class="text-[10px] font-medium">Tasks</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-neutral-400">
+<span class="material-symbols-outlined text-[26px]">equalizer</span>
+<span class="text-[10px] font-medium">Progress</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-neutral-400 relative">
+<div class="relative">
+<span class="material-symbols-outlined text-[26px]">help</span>
+<div class="absolute top-0 -right-0.5 size-[8px] bg-calm-purple rounded-full border-2 border-white"></div>
+</div>
+<span class="text-[10px] font-medium">Help</span>
+</button>
+</div>
+</nav>
+
+</body></html>

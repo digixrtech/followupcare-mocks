@@ -1,0 +1,495 @@
+<html><head><meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FollowCare Provider Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#5eaee4",
+              "primary-dark": "#4a9bc8",
+              "background-light": "#f6f7f8",
+              "background-dark": "#121a20",
+              "surface-light": "#ffffff",
+              "surface-dark": "#1A2632",
+              "charcoal": "#333333",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"],
+              "body": ["Inter", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+            boxShadow: {
+              "sidebar": "4px 0 24px 0 rgba(0, 0, 0, 0.04)",
+              "header": "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }.baseline-align {
+            display: flex;
+            align-items: baseline;
+        }
+    </style>
+</head><body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 overflow-hidden h-screen flex">
+<aside class="w-[256px] bg-surface-light dark:bg-surface-dark border-r border-slate-200 dark:border-slate-800 flex-shrink-0 flex flex-col h-full shadow-sidebar z-20 relative">
+<div class="p-6 flex items-center gap-3 h-[80px] shrink-0">
+<div class="bg-primary/20 rounded-lg p-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-2xl">health_and_safety</span>
+</div>
+<div>
+<h1 class="text-slate-900 dark:text-white text-lg font-bold leading-tight">FollowCare</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium">Provider Portal</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 flex flex-col gap-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary dark:text-primary font-bold shadow-sm ring-1 ring-primary/20 transition-all group" href="#">
+<span class="material-symbols-outlined filled">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200 transition-colors font-medium group" href="#">
+<span class="material-symbols-outlined group-hover:scale-105 transition-transform">group</span>
+<span>My Patients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200 transition-colors font-medium group" href="#">
+<span class="material-symbols-outlined group-hover:scale-105 transition-transform">notifications_active</span>
+<span>Alerts</span>
+<span class="ml-auto bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-sm">3</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200 transition-colors font-medium group" href="#">
+<span class="material-symbols-outlined group-hover:scale-105 transition-transform">flag</span>
+<span>Checkpoints</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200 transition-colors font-medium group" href="#">
+<span class="material-symbols-outlined group-hover:scale-105 transition-transform">assignment</span>
+<span>Care Plans</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200 transition-colors font-medium group" href="#">
+<span class="material-symbols-outlined group-hover:scale-105 transition-transform">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800 bg-surface-light dark:bg-surface-dark shrink-0">
+<div class="flex items-center gap-3 p-3 rounded-xl border border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 cursor-pointer transition-all hover:shadow-md group">
+<div class="size-10 rounded-full bg-cover bg-center border border-slate-200 dark:border-slate-700 group-hover:border-primary transition-colors" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC8R7-4iUm-qhQ439KxHGCpHlliDwLN5tl2itmzBDt3oSqAdwSsw9M7htEx7bcg82v7dXQ1eJiH-rXlJT5K9lJ7x3A2q6auEqZzNbGM_5k78I_g4_1JOFZqWyIJyo81XaUxCQwN1lT0qLkktSMv2lX5vjYJ1LfnLaYZm2ctx605zboFT7iHdTU_DofLoDzNFg_2eJdlP8DNUeSo8XgSdwTkFQEgMyN2iH9b_pHaK1S2Cs86bRhBqVW-nhfVS5cv-NYQE5MHfxRIGZQ");'></div>
+<div class="flex flex-col min-w-0">
+<p class="text-sm font-bold text-slate-900 dark:text-white truncate">Dr. Matthews</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 truncate">Cardiologist</p>
+</div>
+<span class="material-symbols-outlined text-slate-400 ml-auto text-sm group-hover:text-primary transition-colors">more_vert</span>
+</div>
+</div>
+</aside>
+<div class="flex flex-col flex-1 overflow-hidden h-full">
+<header class="h-[64px] bg-white dark:bg-surface-dark border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 shadow-sm z-50 flex-shrink-0">
+<div class="flex items-center">
+<nav class="flex items-center text-sm font-medium text-slate-500 dark:text-slate-400">
+<span class="hover:text-slate-700 dark:hover:text-slate-300 transition-colors cursor-pointer">Home</span>
+<span class="mx-2 text-slate-300 dark:text-slate-600">/</span>
+<span class="text-slate-900 dark:text-white font-semibold">Dashboard</span>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3 text-sm">
+<span class="font-medium text-slate-700 dark:text-slate-200">December 31, 2025</span>
+<span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600"></span>
+<span class="font-medium text-slate-500 dark:text-slate-400">2:34 PM</span>
+</div>
+<div class="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
+<button class="relative p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+<span class="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white ring-2 ring-white dark:ring-surface-dark shadow-sm">3</span>
+</button>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto p-8 scroll-smooth bg-slate-50/50 dark:bg-background-dark/50">
+<div class="max-w-7xl mx-auto space-y-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Good Morning, Dr. Matthews</h2>
+<p class="text-slate-500 dark:text-slate-400 mt-1">Here is the summary of your patient recovery plans and alerts.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-surface-dark border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+                        Filter View
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors shadow-sm shadow-primary/20">
+<span class="material-symbols-outlined text-lg">add</span>
+                        Add Patient
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-white dark:bg-surface-dark rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4 hover:border-blue-300 dark:hover:border-blue-700 transition-colors group">
+<div>
+<p class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Active Patients</p>
+<div class="mt-1 flex items-baseline gap-2">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">124</span>
+<span class="inline-flex items-center text-xs font-semibold text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-900/30 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px] mr-0.5">trending_up</span> 4%
+                            </span>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40 transition-colors">
+<span class="material-symbols-outlined text-[24px]">group</span>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4 hover:border-red-300 dark:hover:border-red-700 transition-colors group">
+<div>
+<p class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Critical Deviations</p>
+<div class="mt-1 flex items-baseline gap-2">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">5</span>
+<span class="inline-flex items-center text-xs font-semibold text-red-600 bg-red-50 dark:text-red-400 dark:bg-red-900/30 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px] mr-0.5">trending_up</span> +2
+                            </span>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 group-hover:bg-red-100 dark:group-hover:bg-red-900/40 transition-colors">
+<span class="material-symbols-outlined text-[24px]">warning</span>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4 hover:border-amber-300 dark:hover:border-amber-700 transition-colors group">
+<div>
+<p class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Pending Checks</p>
+<div class="mt-1 flex items-baseline gap-2">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">12</span>
+<span class="inline-flex items-center text-xs font-semibold text-amber-600 bg-amber-50 dark:text-amber-400 dark:bg-amber-900/30 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px] mr-0.5">schedule</span> 2 Overdue
+                            </span>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-amber-50 text-amber-600 dark:bg-amber-900/20 dark:text-amber-400 group-hover:bg-amber-100 dark:group-hover:bg-amber-900/40 transition-colors">
+<span class="material-symbols-outlined text-[24px]">flag</span>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4 hover:border-purple-300 dark:hover:border-purple-700 transition-colors group">
+<div>
+<p class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Plan Approvals</p>
+<div class="mt-1 flex items-baseline gap-2">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">8</span>
+<span class="inline-flex items-center text-xs font-semibold text-slate-500 bg-slate-100 dark:text-slate-400 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px] mr-0.5">pending</span> 3 Pending
+                            </span>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400 group-hover:bg-purple-100 dark:group-hover:bg-purple-900/40 transition-colors">
+<span class="material-symbols-outlined text-[24px]">assignment_turned_in</span>
+</div>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-5">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        Prioritized Deviations
+                        <span class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold px-2 py-0.5 rounded-full">5</span>
+</h3>
+<div class="relative inline-block text-left">
+<button class="inline-flex items-center gap-2 justify-center w-full rounded-md border border-slate-300 dark:border-slate-600 shadow-sm px-4 py-2 bg-white dark:bg-surface-dark text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 focus:outline-none transition-colors">
+<span class="material-symbols-outlined text-lg">tune</span>
+                            Filter: Severity (High to Low)
+                            <span class="material-symbols-outlined text-sm ml-1">expand_more</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="group bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-md hover:border-red-200 dark:hover:border-red-900/30 transition-all duration-200 border-l-[6px] border-l-red-500 p-6 flex flex-col lg:flex-row items-start lg:items-center gap-8">
+<div class="flex items-start gap-4 min-w-[280px] lg:w-1/3">
+<div class="size-14 rounded-full bg-cover bg-center shrink-0 border border-slate-100 dark:border-slate-700 shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCxE2CpJnxFuaQHDbl9g2TvwnvpoJn8IRZ1tPmirWYCx7Fa0DTyCHLztQWCe7UiesYkCZ2LAIlPy_EDlh_gZ_S20919TtxnCp9xBe_8eZGuSYVY8J0ketYSMJ_8M5kn3iFpBEAgIAWY3vkVdnBttAZSebvkCT20IH_fVG2EmxdRZcZ6OCviB9KuUR4Xh76-mB2zJRTNjhi0rMqQ7FckkUA7VwNk12cj3RXe3xhCm5eQyGlQLKqacp1_-Znhmi2cZEYnqz5E0q8Nols");'></div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h4 class="text-base font-bold text-slate-900 dark:text-white">John Martinez</h4>
+<span class="text-xs font-mono text-slate-400 bg-slate-50 dark:bg-slate-800 px-1.5 py-0.5 rounded">MRN: 892-110</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Total Knee Replacement</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px]">calendar_today</span> Day 3
+                                    </span>
+<span class="inline-flex items-center text-[11px] font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 rounded">
+                                        Acute Phase
+                                    </span>
+</div>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-8 border-t lg:border-t-0 lg:border-l border-slate-100 dark:border-slate-800 pt-6 lg:pt-0 lg:pl-12 w-full lg:w-auto">
+<div class="flex flex-col justify-center gap-1">
+<div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-sm text-red-600 dark:text-red-400">emergency</span> 
+                                        Pain Score
+                                    </div>
+<div class="flex items-baseline gap-2.5">
+<span class="text-3xl font-bold text-slate-900 dark:text-white leading-none">8/10</span>
+<span class="bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide transform -translate-y-0.5">Critical</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Target: &lt; 3/10</p>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[10px] text-slate-400 font-medium mb-1.5 uppercase tracking-wide">Last 24 Hours</p>
+<div class="h-10 w-full max-w-[160px]">
+<svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 30">
+<defs>
+<linearGradient id="gradRed" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#ef4444;stop-opacity:0.2"></stop>
+<stop offset="100%" style="stop-color:#ef4444;stop-opacity:0"></stop>
+</linearGradient>
+</defs>
+<path d="M0 25 L10 24 L20 22 L30 15 L40 18 L50 20 L60 12 L70 8 L80 10 L90 5 L100 2" fill="url(#gradRed)" stroke="#ef4444" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+<circle cx="100" cy="2" fill="#ef4444" r="3"></circle>
+</svg>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 w-full lg:w-auto mt-4 lg:mt-0 lg:min-w-[140px]">
+<button onclick="window.location.href='P03B-patient-detail-monitor.html'" class="w-full px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium shadow-md shadow-blue-500/20 hover:bg-primary-dark transition-colors focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-slate-900">
+                                View Patient
+                            </button>
+<button class="w-full px-4 py-2 bg-white dark:bg-transparent border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors focus:ring-2 focus:ring-slate-200">
+                                Acknowledge
+                            </button>
+</div>
+</div>
+<div class="group bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-md hover:border-orange-200 dark:hover:border-orange-900/30 transition-all duration-200 border-l-[6px] border-l-orange-500 p-6 flex flex-col lg:flex-row items-start lg:items-center gap-8">
+<div class="flex items-start gap-4 min-w-[280px] lg:w-1/3">
+<div class="size-14 rounded-full bg-cover bg-center shrink-0 border border-slate-100 dark:border-slate-700 shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDdOEGYBZ73KWsrCpqFsJLsdyD-eVoeV1ZxK-Gug0S10lQ6fr3iwUxfgO2Sbn2BOCm2wrOWYQkFetc0wJ-x0iJJCulnK9KQ1eHNY89QtlYNqdWwsTQDWyZ3uMZZBTxOckUKpxVQLGugeLNzJ2hyGeCJgumDNZzXynaAfc5MX6_BnBDgI0tI3V8bYaN8AgNFz1D6eM-0lgMjRz_W9VSPf19_ccut5ff3_F9kVE1c0yK6vyTNZp5bAOGdqKiogNl-2XUC3Sitvp2hmRg");'></div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h4 class="text-base font-bold text-slate-900 dark:text-white">Sarah Chen</h4>
+<span class="text-xs font-mono text-slate-400 bg-slate-50 dark:bg-slate-800 px-1.5 py-0.5 rounded">MRN: 442-991</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Hip Replacement</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px]">calendar_today</span> Day 12
+                                    </span>
+<span class="inline-flex items-center text-[11px] font-medium text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 px-2 py-0.5 rounded">
+                                        Monitoring
+                                    </span>
+</div>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-8 border-t lg:border-t-0 lg:border-l border-slate-100 dark:border-slate-800 pt-6 lg:pt-0 lg:pl-12 w-full lg:w-auto">
+<div class="flex flex-col justify-center gap-1">
+<div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-sm text-orange-600 dark:text-orange-400">cardiology</span> 
+                                        Blood Pressure
+                                    </div>
+<div class="flex items-baseline gap-2.5">
+<span class="text-3xl font-bold text-slate-900 dark:text-white leading-none">158/96</span>
+<span class="bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide transform -translate-y-0.5">Severe</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Target: &lt; 130/80</p>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[10px] text-slate-400 font-medium mb-1.5 uppercase tracking-wide">Last 24 Hours</p>
+<div class="h-10 w-full max-w-[160px]">
+<svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 30">
+<path d="M0 20 L10 18 L20 22 L30 15 L40 12 L50 18 L60 10 L70 5 L80 12 L90 8 L100 5" fill="none" stroke="#f97316" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+<circle cx="100" cy="5" fill="#f97316" r="3"></circle>
+</svg>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 w-full lg:w-auto mt-4 lg:mt-0 lg:min-w-[140px]">
+<button onclick="window.location.href='P03B-patient-detail-monitor.html'"class="w-full px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium shadow-md shadow-blue-500/20 hover:bg-primary-dark transition-colors focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-slate-900">
+                                View Patient
+                            </button>
+<button class="w-full px-4 py-2 bg-white dark:bg-transparent border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                                Acknowledge
+                            </button>
+</div>
+</div>
+<div class="group bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-md hover:border-orange-200 dark:hover:border-orange-900/30 transition-all duration-200 border-l-[6px] border-l-orange-400 p-6 flex flex-col lg:flex-row items-start lg:items-center gap-8">
+<div class="flex items-start gap-4 min-w-[280px] lg:w-1/3">
+<div class="size-14 rounded-full bg-cover bg-center shrink-0 border border-slate-100 dark:border-slate-700 shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA4jGGsQR_KkqQI1n2c2-xrG59d7DNN-f7OYIwhXCpdFFG8YJqFNMCn2rjMxty2N0nxBI4R_vw3v4iBk_orFC2HH6pX5BuNpj9CpHcVbpCQN1DO36ez2Tg1LKzqtr9IHrTZknNAn-uXfj2gkTy-9yTup_DmwetpCUCSCejYgLhrDzqQwE1eikdwbNMDERhiWFQJKkzEQgsHpZ-8T9qP5ULk0xVZapL3qgIgTg2F7aK6GXVTF2vfHRmqg6-7iC3apffq0yrzBkS3N3U");'></div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h4 class="text-base font-bold text-slate-900 dark:text-white">Robert Fox</h4>
+<span class="text-xs font-mono text-slate-400 bg-slate-50 dark:bg-slate-800 px-1.5 py-0.5 rounded">MRN: 332-009</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Cardiac Valve Repair</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px]">calendar_today</span> Day 2
+                                    </span>
+<span class="inline-flex items-center text-[11px] font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 rounded">
+                                        Recovery
+                                    </span>
+</div>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-8 border-t lg:border-t-0 lg:border-l border-slate-100 dark:border-slate-800 pt-6 lg:pt-0 lg:pl-12 w-full lg:w-auto">
+<div class="flex flex-col justify-center gap-1">
+<div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-sm text-orange-500 dark:text-orange-400">vital_signs</span> 
+                                        SpO2 Level
+                                    </div>
+<div class="flex items-baseline gap-2.5">
+<span class="text-3xl font-bold text-slate-900 dark:text-white leading-none">92%</span>
+<span class="bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide transform -translate-y-0.5">Moderate</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Target: &gt; 95%</p>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[10px] text-slate-400 font-medium mb-1.5 uppercase tracking-wide">Last 24 Hours</p>
+<div class="h-10 w-full max-w-[160px]">
+<svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 30">
+<path d="M0 5 L10 8 L20 12 L30 10 L40 15 L50 12 L60 20 L70 22 L80 18 L90 25 L100 25" fill="none" stroke="#fb923c" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+<circle cx="100" cy="25" fill="#fb923c" r="3"></circle>
+</svg>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 w-full lg:w-auto mt-4 lg:mt-0 lg:min-w-[140px]">
+<button onclick="window.location.href='P03B-patient-detail-monitor.html'"class="w-full px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium shadow-md shadow-blue-500/20 hover:bg-primary-dark transition-colors focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-slate-900">
+                                View Patient
+                            </button>
+<button class="w-full px-4 py-2 bg-white dark:bg-transparent border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                                Acknowledge
+                            </button>
+</div>
+</div>
+<div class="group bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-md hover:border-amber-200 dark:hover:border-amber-900/30 transition-all duration-200 border-l-[6px] border-l-amber-400 p-6 flex flex-col lg:flex-row items-start lg:items-center gap-8">
+<div class="flex items-start gap-4 min-w-[280px] lg:w-1/3">
+<div class="size-14 rounded-full bg-cover bg-center shrink-0 border border-slate-100 dark:border-slate-700 shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuABgGnuNeL9IrsRpyA_IO0HP-DnWdFDfy2ZIXgoOfCUgetGMzST-XyE-j7_TdGCUdlh0bo37ktScIRzzAIDmYqv3YUzoQ6hsRhRY-GZ9NqUxEH7EUd1y_H3ns_4BfmCP0UINVtYfYFgOTS-HHUXL18xSrgTw8UTPkSsXpiqveFeYcc4D0q3wSVGzEH73HCW4nszoVsbIH0bm5NZQtyWhEZ-oyJqkXsgH5fG-hy6S9aRbbx27SL0kIfQnUigFCmN0GMeiIWug2TUSd8");'></div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h4 class="text-base font-bold text-slate-900 dark:text-white">Emma Wilson</h4>
+<span class="text-xs font-mono text-slate-400 bg-slate-50 dark:bg-slate-800 px-1.5 py-0.5 rounded">MRN: 119-228</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Spinal Fusion</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px]">calendar_today</span> Day 15
+                                   </span>
+<span class="inline-flex items-center text-[11px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-0.5 rounded">
+                                       Rehabilitation
+                                   </span>
+</div>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-8 border-t lg:border-t-0 lg:border-l border-slate-100 dark:border-slate-800 pt-6 lg:pt-0 lg:pl-12 w-full lg:w-auto">
+<div class="flex flex-col justify-center gap-1">
+<div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-sm text-amber-500 dark:text-amber-400">medication</span> 
+                                       Medication
+                                   </div>
+<div class="flex items-baseline gap-2.5">
+<span class="text-3xl font-bold text-slate-900 dark:text-white leading-none">2</span>
+<span class="bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide transform -translate-y-0.5">Warning</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Missed Doses</p>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[10px] text-slate-400 font-medium mb-1.5 uppercase tracking-wide">Adherence</p>
+<div class="h-10 w-full max-w-[160px]">
+<svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 30">
+<rect class="dark:fill-slate-700" fill="#cbd5e1" height="25" rx="1" width="8" x="0" y="5"></rect>
+<rect class="dark:fill-slate-700" fill="#cbd5e1" height="25" rx="1" width="8" x="15" y="5"></rect>
+<rect class="dark:fill-slate-700" fill="#cbd5e1" height="25" rx="1" width="8" x="30" y="5"></rect>
+<rect class="dark:fill-slate-700" fill="#cbd5e1" height="25" rx="1" width="8" x="45" y="5"></rect>
+<rect fill="#fbbf24" height="5" rx="1" width="8" x="60" y="25"></rect>
+<rect class="dark:fill-slate-700" fill="#cbd5e1" height="25" rx="1" width="8" x="75" y="5"></rect>
+<rect fill="#fbbf24" height="5" rx="1" width="8" x="90" y="25"></rect>
+</svg>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 w-full lg:w-auto mt-4 lg:mt-0 lg:min-w-[140px]">
+<button onclick="window.location.href='P03B-patient-detail-monitor.html'"class="w-full px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium shadow-md shadow-blue-500/20 hover:bg-primary-dark transition-colors focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-slate-900">
+                               View Patient
+                           </button>
+<button class="w-full px-4 py-2 bg-white dark:bg-transparent border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                               Acknowledge
+                           </button>
+</div>
+</div>
+<div class="group bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-md hover:border-blue-200 dark:hover:border-blue-900/30 transition-all duration-200 border-l-[6px] border-l-blue-400 p-6 flex flex-col lg:flex-row items-start lg:items-center gap-8">
+<div class="flex items-start gap-4 min-w-[280px] lg:w-1/3">
+<div class="size-14 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-500 font-bold shrink-0 border border-slate-100 dark:border-slate-700 shadow-sm">MB</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h4 class="text-base font-bold text-slate-900 dark:text-white">Michael Brown</h4>
+<span class="text-xs font-mono text-slate-400 bg-slate-50 dark:bg-slate-800 px-1.5 py-0.5 rounded">MRN: 772-102</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">CHF Management</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px]">calendar_today</span> Day 21
+                                   </span>
+<span class="inline-flex items-center text-[11px] font-medium text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
+                                       Maintenance
+                                   </span>
+</div>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-8 border-t lg:border-t-0 lg:border-l border-slate-100 dark:border-slate-800 pt-6 lg:pt-0 lg:pl-12 w-full lg:w-auto">
+<div class="flex flex-col justify-center gap-1">
+<div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-sm text-blue-500 dark:text-blue-400">monitor_weight</span> 
+                                       Weight Change
+                                   </div>
+<div class="flex items-baseline gap-2.5">
+<span class="text-3xl font-bold text-slate-900 dark:text-white leading-none">+3 lbs</span>
+<span class="bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide transform -translate-y-0.5">Watch</span>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Over 24h</p>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[10px] text-slate-400 font-medium mb-1.5 uppercase tracking-wide">Last 7 Days</p>
+<div class="h-10 w-full max-w-[160px]">
+<svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 30">
+<path d="M0 25 L15 25 L30 24 L45 22 L60 20 L75 15 L90 5 L100 2" fill="none" stroke="#60a5fa" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+<circle cx="100" cy="2" fill="#60a5fa" r="3"></circle>
+</svg>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 w-full lg:w-auto mt-4 lg:mt-0 lg:min-w-[140px]">
+<button onclick="window.location.href='P03B-patient-detail-monitor.html'"class="w-full px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium shadow-md shadow-blue-500/20 hover:bg-primary-dark transition-colors focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-slate-900">
+                               View Patient
+                           </button>
+<button class="w-full px-4 py-2 bg-white dark:bg-transparent border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                               Acknowledge
+                           </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

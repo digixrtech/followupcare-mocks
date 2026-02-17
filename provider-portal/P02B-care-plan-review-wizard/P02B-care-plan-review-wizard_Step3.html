@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Care Plan Review - Step 3</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#5faee3",
+                "brand-blue": "#1E40AF",
+                "active-blue": "#5DADE2",
+                "active-bg": "#E8F4F8",
+                "sidebar-bg": "#F8F8F8",
+                "sidebar-border": "#E5E7EB",
+                "text-main": "#36454F",
+                "text-secondary": "#6B7280",
+                "background-light": "#f6f7f8",
+                "background-dark": "#121a20",
+                "success-green": "#10B981",
+                "border-gray": "#E5E7EB",
+                "text-gray-light": "#9CA3AF"
+              },
+              fontFamily: {
+                "display": ["Inter", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body { font-family: 'Inter', sans-serif; color: #36454F; }
+        }
+        .material-symbols-outlined { 
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+        .active-state {
+            background-color: #E8F4F8;
+            color: #5DADE2 !important;
+            border-left: 3px solid #5DADE2;
+        }
+        .sidebar-item {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            gap: 12px;
+            font-size: 14px;
+            color: #36454F;
+            transition: all 0.2s ease;
+        }
+        .sidebar-item:hover:not(.active-state) {
+            background-color: rgba(0,0,0,0.03);
+        }
+        .breadcrumb-link {
+            color: #5DADE2;
+            text-decoration: none;
+        }
+        .breadcrumb-link:hover {
+            text-decoration: underline;
+        }
+        .btn-secondary {
+            @apply px-4 py-2 bg-white border border-[#E5E7EB] text-[#6B7280] text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors;
+        }
+        .btn-primary {
+            @apply px-6 py-2 bg-[#5DADE2] text-white text-sm font-semibold rounded-lg hover:bg-[#3B97D3] transition-colors;
+        }
+        .btn-primary-disabled {
+            @apply px-6 py-2 bg-[#E5E7EB] text-[#9CA3AF] text-sm font-semibold rounded-lg cursor-not-allowed;
+        }
+        .accordion-content {
+            display: none;
+        }
+        .accordion-container.expanded > .accordion-content {
+            display: block;
+        }
+        .accordion-container.expanded .chevron-icon {
+            transform: rotate(180deg);
+        }
+        .chevron-icon {
+            transition: transform 0.2s ease;
+        }
+        .custom-checkbox {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: 2px solid #E5E7EB;
+            cursor: pointer;
+            @apply focus:ring-0 focus:ring-offset-0 text-[#5DADE2];
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col overflow-hidden">
+<div class="flex h-screen w-full overflow-hidden">
+<aside class="w-64 bg-[#F8F8F8] border-r border-[#E5E7EB] flex flex-col shrink-0">
+<div class="flex flex-col h-full">
+<div class="p-6">
+<div class="flex items-center gap-3">
+<div class="bg-[#1E40AF] rounded-lg p-1.5 flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-size: 20px;">medical_services</span>
+</div>
+<h1 class="text-[#1E40AF] text-xl font-bold tracking-tight">FollowCare</h1>
+</div>
+</div>
+<nav class="flex flex-col flex-1">
+<a class="sidebar-item" href="#"><span class="material-symbols-outlined">dashboard</span><span>Dashboard</span></a>
+<a class="sidebar-item" href="#"><span class="material-symbols-outlined">group</span><span>Patients</span></a>
+<a class="sidebar-item" href="#"><span class="material-symbols-outlined">notifications</span><span>Alerts</span></a>
+<a class="sidebar-item" href="#"><span class="material-symbols-outlined">event_available</span><span>Checkpoints</span></a>
+<a class="sidebar-item active-state" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span><span class="font-medium">Care Plans</span></a>
+<a class="sidebar-item" href="#"><span class="material-symbols-outlined">settings</span><span>Settings</span></a>
+</nav>
+<div class="p-6 border-t border-[#E5E7EB] flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-cover bg-center shrink-0" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAgq6TY88GXLvCp-KOD7U-6w1SbjV-4Wv89Fnp152SHRNGGOUdaHGMHcg8GHXcuwMZVNeZsvpGlbGhABBLLjUBgP0n6MvbjKIS7NeZzQIiXGDxrXO1E9ZY4S7QqVFYJHlw6WnB5C1VMxOIqUsf0spdkuauzBs-gxbHzjLBKylUS6Hcu5ihlzVFN-AktI_WSPdPDAMV4w8dyEJP0-NM7J_xv6-8FpGf4E14G5W6TCDkJjDo6A0RBk7-w49DxM3zNSE52Ri_xVk5O4ME')"></div>
+<div class="flex flex-col min-w-0">
+<p class="text-sm font-medium text-[#36454F] truncate">Dr. Sarah Chen</p>
+<p class="text-xs text-[#6B7280]">Physician</p>
+</div>
+</div>
+</div>
+</aside>
+<div class="flex flex-col flex-1 min-w-0 bg-white dark:bg-background-dark">
+<header class="h-[64px] bg-[#FFFFFF] border-b border-[#E5E7EB] flex items-center justify-between px-6 shrink-0">
+<div class="flex flex-col justify-center">
+<h2 class="text-[24px] font-bold text-[#36454F] leading-tight">Review Care Plan</h2>
+<nav class="flex items-center gap-1 text-[14px] text-[#6B7280]">
+<a class="breadcrumb-link" href="#">Care Plans</a>
+<span>/</span>
+<a class="breadcrumb-link" href="#">Robert Martinez</a>
+<span>/</span>
+<span>Review</span>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center">
+<span class="material-symbols-outlined text-[#9CA3AF]" style="font-size: 20px;">search_spark</span>
+</button>
+<div class="text-[14px] text-[#6B7280]">Jan 13, 2026 10:45 AM</div>
+<button class="relative flex items-center justify-center p-1">
+<span class="material-symbols-outlined text-[#6B7280]" style="font-size: 20px;">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-[#EF4444] rounded-full border border-white"></span>
+</button>
+</div>
+</header>
+<div class="h-[44px] bg-[#FEF3C7] flex items-center px-6 border-b border-[#F59E0B] shrink-0">
+<div class="flex items-center justify-between w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#F59E0B]" style="font-size: 18px;">warning</span>
+<p class="text-[#92400E] text-[14px] font-medium">
+                        You are viewing: <span class="font-bold uppercase">Robert Martinez</span> (MRN: 98765432) - 60M, DOB: 03/22/1965 | Allergies: Latex, Codeine
+                    </p>
+</div>
+<span class="px-2 py-0.5 bg-[#EF4444] text-white text-[10px] font-bold rounded leading-none uppercase tracking-wider">Allergy</span>
+</div>
+</div>
+<div class="flex flex-1 overflow-hidden">
+<aside class="w-[250px] border-r border-[#E5E7EB] flex flex-col shrink-0 overflow-y-auto bg-white">
+<div class="p-6 text-center">
+<div class="w-20 h-20 rounded-full bg-gray-100 mx-auto mb-4 border-2 border-white shadow-sm overflow-hidden">
+<img alt="Patient" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe5Cqsg0xioaotKu3-7td1UBse5CSnF40Qr3A3jUSYGfD4i8nE88byOOj9BZy-xaLhS-vj36Tav9NTURZgoUeNkddsQpufLVr3At6kpu94xQrYuZhFS8opybDew5OetfPfiTiEM020aNEABU8j1ErZWWCCCUeHEvspvC2oWjXAVYeWpRc7yVAG0uFFV9j0XFvpU1tN8Bd_zm1wuo6MrduA1daC66tXoZwfH51bdZDW9CG6CbtJkyLQwFwPXsWpjsvhzuv2GJze97Q"/>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-[16px] font-bold text-[#36454F]">Robert Martinez, 60M</h3>
+<p class="text-[14px] text-[#6B7280]">CABG Surgery (3-vessel)</p>
+<p class="text-[14px] text-[#6B7280]">Surgery Date: Jan 11, 2026</p>
+<div class="mt-2">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[12px] font-semibold bg-[#E8F4F8] text-[#5DADE2]">
+                                Post-Op Day 2
+                            </span>
+</div>
+</div>
+</div>
+<div class="border-t border-[#E5E7EB]"></div>
+<div class="p-6">
+<h4 class="text-[12px] font-bold text-[#9CA3AF] uppercase tracking-wider mb-4">RISK FACTORS</h4>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-[#F3E8FF] text-[#A855F7] rounded text-[11px] font-bold">Diabetes Type 2</span>
+<span class="px-2 py-1 bg-[#F3E8FF] text-[#A855F7] rounded text-[11px] font-bold">Obesity BMI 32</span>
+<span class="px-2 py-1 bg-[#FFF9E6] text-[#D68910] rounded text-[11px] font-bold">Age 60</span>
+<span class="px-2 py-1 bg-[#FFF9E6] text-[#D68910] rounded text-[11px] font-bold">Metabolic Syndrome</span>
+</div>
+</div>
+<div class="border-t border-[#E5E7EB]"></div>
+<div class="p-6">
+<h4 class="text-[12px] font-bold text-[#9CA3AF] uppercase tracking-wider mb-3">TEMPLATE</h4>
+<div class="space-y-1">
+<p class="text-[14px] font-bold text-[#36454F]">CABG_HIGH_RISK</p>
+<p class="text-[12px] text-[#6B7280]">180 days</p>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col overflow-y-auto bg-[#F9FAFB]">
+<div class="bg-white px-5 flex flex-col justify-center h-[80px] border-b border-[#E5E7EB] shrink-0">
+<div class="max-w-3xl mx-auto w-full flex items-center justify-between relative">
+<div class="absolute top-4 left-0 w-full flex items-center px-[64px]">
+<div class="h-[2px] flex-1 bg-[#10B981]"></div>
+<div class="h-[2px] flex-1 bg-[#10B981]"></div>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-1 w-32">
+<div class="w-[32px] h-[32px] rounded-full bg-[#10B981] text-white flex items-center justify-center shrink-0 shadow-sm border-2 border-white">
+<span class="material-symbols-outlined" style="font-size: 18px; font-weight: bold;">check</span>
+</div>
+<span class="text-[14px] font-medium text-[#10B981] text-center leading-tight">Patient Overview</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-1 w-32">
+<div class="w-[32px] h-[32px] rounded-full bg-[#10B981] text-white flex items-center justify-center shrink-0 shadow-sm border-2 border-white">
+<span class="material-symbols-outlined" style="font-size: 18px; font-weight: bold;">check</span>
+</div>
+<span class="text-[14px] font-medium text-[#10B981] text-center leading-tight">Component Review</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-1 w-32">
+<div class="w-[32px] h-[32px] rounded-full bg-[#5DADE2] text-white flex items-center justify-center font-bold text-[14px] shrink-0 shadow-sm border-2 border-white">3</div>
+<span class="text-[14px] font-medium text-[#5DADE2] text-center leading-tight">Final Approval</span>
+</div>
+</div>
+</div>
+<div class="max-w-4xl w-full mx-auto p-10 space-y-8">
+<div>
+<h1 class="text-[24px] font-bold text-[#36454F]">Final Review &amp; Approval</h1>
+<p class="text-[14px] text-[#6B7280] mt-1">Review care plan summary and approve for activation</p>
+</div>
+<section class="space-y-4">
+<h2 class="text-[18px] font-bold text-[#36454F]">Review Summary: All Modifications</h2>
+<div class="bg-[#E8F4F8] border border-[#CCE4ED] px-4 py-3 rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#5DADE2]">info</span>
+<p class="text-[14px] text-[#1E40AF]">To modify individual components or tasks, please return to the review step.</p>
+</div>
+<a class="text-[14px] font-semibold text-[#5DADE2] hover:underline" href="#">Return to Step 2</a>
+</div>
+<div class="space-y-3">
+<div class="border border-[#E5E7EB] rounded-xl bg-white overflow-hidden accordion-container expanded">
+<div class="p-4 flex items-center justify-between cursor-pointer bg-gray-50/50 hover:bg-gray-100 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-[#E8F4F8] flex items-center justify-center">
+<span class="material-symbols-outlined text-[#5DADE2]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<span class="text-[15px] font-semibold text-[#36454F]">AI Applied 18 Modifications</span>
+</div>
+<span class="material-symbols-outlined text-[#9CA3AF] chevron-icon">expand_more</span>
+</div>
+<div class="accordion-content p-6 border-t border-[#E5E7EB] bg-white space-y-[12px]">
+<div class="rounded-lg overflow-hidden border border-[#E9D5FF] accordion-container expanded">
+<div class="p-3 flex items-center justify-between cursor-pointer bg-[#F3E8FF] hover:bg-[#EBD5FF] transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#A855F7]">medical_services</span>
+<span class="text-[16px] font-bold text-[#36454F]">Comorbidity Modifications (8)</span>
+</div>
+<span class="material-symbols-outlined text-[#A855F7] text-[18px] chevron-icon">expand_more</span>
+</div>
+<div class="accordion-content p-4 bg-white border-t border-[#E9D5FF]">
+<div class="space-y-3">
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#A855F7]"></div> Blood Glucose Monitoring (4x daily)</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#A855F7]"></div> Incision Inspection for high BMI</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#A855F7]"></div> Nutritional Consult: Low Sodium</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#A855F7]"></div> HbA1c Follow-up at week 12</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#A855F7]"></div> Renal Profile Check (POD 7)</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#A855F7]"></div> Podiatry Evaluation Referral</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#A855F7]"></div> Modified Medication Reconciliation</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#A855F7]"></div> Self-Monitoring Training: Glucose</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="mt-4 p-3 bg-[#F3E8FF] rounded-lg border border-[#E9D5FF] flex gap-3">
+<span class="material-symbols-outlined text-[#A855F7] text-[18px]">lightbulb</span>
+<div class="text-[12px] text-[#6B21A8] leading-snug">
+<span class="font-bold">Rationale:</span> Patient's History of Type 2 Diabetes and current BMI of 32 require more aggressive monitoring to prevent surgical site infections and glycemic instability during the acute recovery phase.
+                                                    </div>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-lg overflow-hidden border border-[#FEF3C7] accordion-container expanded">
+<div class="p-3 flex items-center justify-between cursor-pointer bg-[#FFF9E6] hover:bg-[#FFF3CC] transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#D68910]">warning_amber</span>
+<span class="text-[16px] font-bold text-[#36454F]">Risk Factor Adjustments (8)</span>
+</div>
+<span class="material-symbols-outlined text-[#D68910] text-[18px] chevron-icon">expand_more</span>
+</div>
+<div class="accordion-content p-4 bg-white border-t border-[#FEF3C7]">
+<div class="space-y-3">
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#D68910]"></div> Extended Cardiac Rehab (+14 days)</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#D68910]"></div> Weight Monitoring (Daily)</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#D68910]"></div> Fluid Intake Log</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#D68910]"></div> Sleep Apnea Screening</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#D68910]"></div> Lower BP Threshold Alerts</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#D68910]"></div> Early Ambulation Protocol</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#D68910]"></div> Compression Stocking Check</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-[#D68910]"></div> Respiratory Therapy Q4H</span>
+<a class="text-[#5DADE2] hover:underline font-medium" href="#">View in Tasks section</a>
+</div>
+<div class="mt-4 p-3 bg-[#FFF9E6] rounded-lg border border-[#FAD7A0] flex gap-3">
+<span class="material-symbols-outlined text-[#D68910] text-[18px]">lightbulb</span>
+<div class="text-[12px] text-[#92400E] leading-snug">
+<span class="font-bold">Rationale:</span> Patient age of 60 and metabolic syndrome profile indicate a higher risk for postoperative fluid retention and slower wound healing, necessitating tighter monitoring parameters.
+                                                    </div>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-lg overflow-hidden border border-[#D1FAE5] accordion-container expanded">
+<div class="p-3 flex items-center justify-between cursor-pointer bg-[#E8F9F3] hover:bg-[#DCF5EB] transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#66BB6A]">psychology</span>
+<div class="flex items-center gap-2">
+<span class="text-[16px] font-bold text-[#36454F]">ML Personalized Expectations (2)</span>
+<span class="px-1.5 py-0.5 bg-[#66BB6A] text-white text-[9px] font-bold rounded uppercase">BETA</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[#66BB6A] text-[18px] chevron-icon">expand_more</span>
+</div>
+<div class="accordion-content p-4 bg-white border-t border-[#D1FAE5]">
+<div class="space-y-4">
+<div class="space-y-1">
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2 font-medium">Expected Recovery Plateau (POD 12-14)</span>
+</div>
+<p class="text-[11px] italic text-[#6B7280] ml-3">ML note: Based on 234 similar patients with combined CABG and metabolic risk profiles.</p>
+</div>
+<div class="space-y-1">
+<div class="flex items-center justify-between text-[12px] text-[#36454F]">
+<span class="flex items-center gap-2 font-medium">Predicted Activity Tolerance Increase (Week 4)</span>
+</div>
+<p class="text-[11px] italic text-[#6B7280] ml-3">ML note: Model suggests 85% probability of delayed stamina improvement until Week 4 due to BMI factors.</p>
+</div>
+<div class="mt-4 p-3 bg-[#E8F9F3] rounded-lg border border-[#A7F3D0] flex gap-3">
+<span class="material-symbols-outlined text-[#10B981] text-[18px]">smart_toy</span>
+<div class="text-[12px] text-[#065F46] leading-snug">
+<span class="font-bold">ML Confidence: High (92%).</span> These expectations are personalized using historical data from our institution for patients matching Mr. Martinez's exact clinical phenotype and surgical intervention.
+                                                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="border border-[#E5E7EB] rounded-xl bg-white overflow-hidden accordion-container expanded">
+<div class="p-4 flex items-center justify-between cursor-pointer bg-gray-50/50 hover:bg-gray-100 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-[#F3E8FF] flex items-center justify-center">
+<span class="material-symbols-outlined text-[#A855F7]">person</span>
+</div>
+<span class="text-[15px] font-semibold text-[#36454F]">Your Edits (3 changes)</span>
+</div>
+<span class="material-symbols-outlined text-[#9CA3AF] chevron-icon">expand_more</span>
+</div>
+<div class="accordion-content p-5 border-t border-[#E5E7EB] bg-white space-y-4">
+<div class="p-5 border border-gray-100 rounded-lg bg-white shadow-sm space-y-4">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<span class="text-[14px] font-medium text-text-main">Pain Medication</span>
+<span class="px-2 py-0.5 bg-[#FFF9E6] text-[#D68910] text-[10px] font-bold rounded uppercase">Edited</span>
+</div>
+<a class="text-[#5DADE2] text-[12px] font-medium hover:underline" href="#">View in Medications</a>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-[12px] text-text-secondary mb-1 uppercase tracking-wider">Original Value</label>
+<div class="text-[12px] text-text-main bg-gray-50 px-3 py-2 rounded">Oxycodone 5mg</div>
+</div>
+<div>
+<label class="block text-[12px] text-text-secondary mb-1 uppercase tracking-wider">Modified Value</label>
+<div class="text-[12px] font-medium text-brand-blue bg-blue-50 px-3 py-2 rounded border border-blue-100">Tramadol 50mg</div>
+</div>
+</div>
+<div class="space-y-1">
+<p class="text-[12px] italic text-text-secondary"><span class="font-medium not-italic">Rationale:</span> Patient has a documented allergy to codeine derivatives; switched to Tramadol as a safer alternative for post-op pain management.</p>
+<p class="text-[10px] text-text-gray-light">Edited by Dr. Sarah Chen on 2026-01-13 10:45 AM</p>
+</div>
+</div>
+<div class="p-5 border border-gray-100 rounded-lg bg-white shadow-sm space-y-4">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<span class="text-[14px] font-medium text-text-main">Merged Checkpoints</span>
+<span class="px-2 py-0.5 bg-[#FFF9E6] text-[#D68910] text-[10px] font-bold rounded uppercase">Merged</span>
+</div>
+<a class="text-[#5DADE2] text-[12px] font-medium hover:underline" href="#">View in Checkpoints</a>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-[12px] text-text-secondary mb-1 uppercase tracking-wider">Original Checkpoints</label>
+<div class="text-[12px] text-text-main bg-gray-50 px-3 py-2 rounded space-y-1">
+<div class="flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-gray-400"></span> Wound Check</div>
+<div class="flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-gray-400"></span> Cardiology Follow-up</div>
+</div>
+</div>
+<div>
+<label class="block text-[12px] text-text-secondary mb-1 uppercase tracking-wider">New Combined Title</label>
+<div class="text-[12px] font-medium text-brand-blue bg-blue-50 px-3 py-2 rounded border border-blue-100">Day 14 Comprehensive Cardiac Review</div>
+</div>
+</div>
+<div class="space-y-1">
+<p class="text-[12px] italic text-text-secondary"><span class="font-medium not-italic">Rationale:</span> Merged separate visits into one comprehensive review to reduce patient travel burden and logistics while ensuring clinical overlap is addressed.</p>
+<p class="text-[10px] text-text-gray-light">Edited by Dr. Sarah Chen on 2026-01-13 10:45 AM</p>
+</div>
+</div>
+<div class="p-5 border border-gray-100 rounded-lg bg-white shadow-sm space-y-4">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<span class="text-[14px] font-medium text-text-main">Chest Pain Signal</span>
+<span class="px-2 py-0.5 bg-[#FFF9E6] text-[#D68910] text-[10px] font-bold rounded uppercase">Edited</span>
+</div>
+<a class="text-[#5DADE2] text-[12px] font-medium hover:underline" href="#">View in Signals</a>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-[12px] text-text-secondary mb-1 uppercase tracking-wider">ML Original Range</label>
+<div class="text-[12px] text-text-main bg-gray-50 px-3 py-2 rounded">2-6 / 10</div>
+</div>
+<div>
+<label class="block text-[12px] text-text-secondary mb-1 uppercase tracking-wider">Physician Adjusted Range</label>
+<div class="text-[12px] font-medium text-brand-blue bg-blue-50 px-3 py-2 rounded border border-blue-100">3-6 / 10</div>
+</div>
+</div>
+<div class="space-y-1">
+<p class="text-[12px] italic text-text-secondary"><span class="font-medium not-italic">Rationale:</span> Increased baseline threshold to 3 based on patient's specific pre-op history of high pain tolerance and atypical cardiac presentations.</p>
+<p class="text-[10px] text-text-gray-light">Edited by Dr. Sarah Chen on 2026-01-13 10:45 AM</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="space-y-6">
+<h2 class="text-[20px] font-bold text-[#36454F]">Approval Confirmation</h2>
+<div class="bg-[#E8F4F8] border-l-4 border-[#5DADE2] p-4 rounded-r-lg flex items-center gap-3">
+<span class="material-symbols-outlined text-[#5DADE2]">info</span>
+<p class="text-[14px] text-[#36454F]">Approved care plans will be activated immediately and visible to the patient's care team. The patient will receive a notification via WhatsApp.</p>
+</div>
+<div class="bg-white border border-[#E5E7EB] rounded-xl p-6 space-y-4">
+<div class="flex items-start gap-4">
+<input class="custom-checkbox" type="checkbox"/>
+<span class="text-[14px] text-[#36454F] mt-1">I have reviewed the AI-selected template (CABG_HIGH_RISK) for its clinical relevance to this patient's surgical case.</span>
+</div>
+<div class="flex items-start gap-4">
+<input class="custom-checkbox" type="checkbox"/>
+<span class="text-[14px] text-[#36454F] mt-1">I have reviewed all AI-applied modifications (18 total) across comorbidities, risk factors, and ML-personalized expectations.</span>
+</div>
+<div class="flex items-start gap-4">
+<input class="custom-checkbox" type="checkbox"/>
+<span class="text-[14px] text-[#36454F] mt-1">I have reviewed all care plan components in Step 2, including medications, tasks, and vital sign thresholds.</span>
+</div>
+<div class="flex items-start gap-4">
+<input class="custom-checkbox" type="checkbox"/>
+<span class="text-[14px] text-[#36454F] mt-1">I have made any necessary edits to individualize this care plan based on the patient's specific medical history and allergies.</span>
+</div>
+<div class="flex items-start gap-4 p-4 bg-[#FFF9E6] border-l-2 border-[#D68910] rounded-r-lg">
+<input class="custom-checkbox border-[#D68910]" type="checkbox"/>
+<span class="text-[14px] font-medium text-[#36454F] mt-1">I confirm this care plan is clinically appropriate for Robert Martinez and authorize its immediate implementation. (Required)</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<p class="text-[12px] text-[#9CA3AF] italic">
+                        Audit Trail: This care plan review session started at 10:12 AM by Dr. Sarah Chen (NPI: 1234567890). All changes are logged for compliance.
+                    </p>
+<div class="flex items-center gap-4">
+<button class="btn-secondary">Save Draft &amp; Exit</button>
+<div class="relative group">
+<button class="btn-primary-disabled flex items-center gap-2" disabled="">
+<span class="material-symbols-outlined text-[#9CA3AF] text-[18px]">check_circle</span>
+                            Approve Care Plan
+                        </button>
+<div class="absolute bottom-full right-0 mb-2 px-3 py-1 bg-gray-800 text-white text-[11px] rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                            Complete all attestation items to enable approval
+                        </div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+<footer class="h-[72px] bg-[#FFFFFF] border-t border-[#E5E7EB] px-[32px] shrink-0 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#10B981]" style="font-size: 18px;">check_circle</span>
+<span class="text-[12px] text-[#9CA3AF]">All changes saved</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="btn-secondary">Save Draft</button>
+<button class="btn-secondary">Exit Review</button>
+</div>
+<div class="flex items-center gap-4">
+<button class="btn-secondary">Back</button>
+<button class="btn-primary-disabled flex items-center gap-2" disabled="">
+<span class="material-symbols-outlined text-[#9CA3AF] text-[18px]">verified</span>
+                    Approve Care Plan
+                </button>
+</div>
+</footer>
+</div>
+</div>
+
+</body></html>

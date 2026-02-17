@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Patient Portal Screens - FollowCare</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { display: ["Inter", "sans-serif"] },
+      colors: {
+        sage: "#7CB97A",
+        "sage-dark": "#5a9a58",
+      }
+    }
+  }
+}
+</script>
+</head>
+<body class="bg-gray-50 font-display min-h-screen">
+  <div class="max-w-6xl mx-auto px-6 py-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-8">
+      <a href="../" class="text-sage hover:text-sage-dark text-sm font-medium">&larr; Back to Home</a>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-10">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="h-8 w-1.5 bg-sage rounded-full"></div>
+        <h1 class="text-3xl font-bold text-gray-900">Patient Portal</h1>
+      </div>
+      <p class="text-gray-500 ml-5">Mobile-first recovery companion for post-surgical patients</p>
+    </div>
+
+    <!-- Section: Home Screen -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold text-gray-800 mb-1">A01A &mdash; Home Screen</h2>
+      <p class="text-sm text-gray-400 mb-5">Recovery dashboard showing daily status, alerts, and care plan progress across different recovery stages.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+
+        <a href="A01A-home/A01A-S1-normal-day7.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sage/30 transition-all">
+          <div class="aspect-[9/16] overflow-hidden bg-gray-100">
+            <img src="A01A-home/A01A-S1-normal-day7.png" alt="Day 7 Normal" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-3">
+            <p class="text-sm font-medium text-gray-700">S1: Normal Day 7</p>
+            <p class="text-xs text-gray-400">Routine recovery</p>
+          </div>
+        </a>
+
+        <a href="A01A-home/A01A-S2-weight-alert-day9.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sage/30 transition-all">
+          <div class="aspect-[9/16] overflow-hidden bg-gray-100">
+            <img src="A01A-home/A01A-S2-weight-alert-day9.png" alt="Weight Alert Day 9" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-3">
+            <p class="text-sm font-medium text-gray-700">S2: Weight Alert Day 9</p>
+            <p class="text-xs text-gray-400">Weight deviation</p>
+          </div>
+        </a>
+
+        <a href="A01A-home/A01A-S3-critical-alert-day16.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sage/30 transition-all">
+          <div class="aspect-[9/16] overflow-hidden bg-gray-100">
+            <img src="A01A-home/A01A-S3-critical-alert-day16.png" alt="Critical Alert Day 16" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-3">
+            <p class="text-sm font-medium text-gray-700">S3: Critical Alert Day 16</p>
+            <p class="text-xs text-gray-400">Critical deviation</p>
+          </div>
+        </a>
+
+        <a href="A01A-home/A01A-S7-depression-day42.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sage/30 transition-all">
+          <div class="aspect-[9/16] overflow-hidden bg-gray-100">
+            <img src="A01A-home/A01A-S7-depression-day42.png" alt="Depression Day 42" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-3">
+            <p class="text-sm font-medium text-gray-700">S7: Depression Day 42</p>
+            <p class="text-xs text-gray-400">Mental health alert</p>
+          </div>
+        </a>
+
+        <a href="A01A-home/A01A-S8-graduation-day90.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sage/30 transition-all">
+          <div class="aspect-[9/16] overflow-hidden bg-gray-100">
+            <img src="A01A-home/A01A-S8-graduation-day90.png" alt="Graduation Day 90" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-3">
+            <p class="text-sm font-medium text-gray-700">S8: Graduation Day 90</p>
+            <p class="text-xs text-gray-400">Recovery complete</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Section: Tasks -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold text-gray-800 mb-1">A02A &mdash; Tasks</h2>
+      <p class="text-sm text-gray-400 mb-5">Daily task checklist showing medications, exercises, and check-in requirements.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+
+        <a href="A02A-tasks/A02A-alert-day9.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sage/30 transition-all">
+          <div class="aspect-[9/16] overflow-hidden bg-gray-100">
+            <img src="A02A-tasks/A02A-alert-day9.png" alt="Tasks Alert Day 9" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-3">
+            <p class="text-sm font-medium text-gray-700">Alert Day 9</p>
+            <p class="text-xs text-gray-400">Task list with alert</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Section: Check-in -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold text-gray-800 mb-1">A05A &mdash; Daily Check-in</h2>
+      <p class="text-sm text-gray-400 mb-5">Step-by-step daily health check-in flow with pain, energy, and symptom tracking.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+
+        <a href="A05A-checkin/A05A-S1-normal-checkin_step_1_opening_screen.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sage/30 transition-all">
+          <div class="aspect-[9/16] overflow-hidden bg-gray-100">
+            <img src="A05A-checkin/A05A-S1-normal-checkin_step_1_opening_sreen.png" alt="Check-in Step 1" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-3">
+            <p class="text-sm font-medium text-gray-700">Step 1: Opening</p>
+            <p class="text-xs text-gray-400">Check-in start</p>
+          </div>
+        </a>
+
+        <a href="A05A-checkin/A05A-S1-normal-checkin_step_2_pain_question.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sage/30 transition-all">
+          <div class="aspect-[9/16] overflow-hidden bg-gray-100">
+            <img src="A05A-checkin/A05A-S1-normal-checkin_step_2_pain_question.png" alt="Check-in Step 2" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-3">
+            <p class="text-sm font-medium text-gray-700">Step 2: Pain</p>
+            <p class="text-xs text-gray-400">Pain level question</p>
+          </div>
+        </a>
+
+        <a href="A05A-checkin/A05A-S1-normal-checkin_step_3_energy_question.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sage/30 transition-all">
+          <div class="aspect-[9/16] overflow-hidden bg-gray-100">
+            <img src="A05A-checkin/A05A-S1-normal-checkin_step_3_energy_question.png" alt="Check-in Step 3" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-3">
+            <p class="text-sm font-medium text-gray-700">Step 3: Energy</p>
+            <p class="text-xs text-gray-400">Energy level question</p>
+          </div>
+        </a>
+
+        <a href="A05A-checkin/A05A-S1-normal-checkin_step_4_symptom_checklist.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sage/30 transition-all">
+          <div class="aspect-[9/16] overflow-hidden bg-gray-100">
+            <img src="A05A-checkin/A05A-S1-normal-checkin_step_4_symptom_checklist.png" alt="Check-in Step 4" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-3">
+            <p class="text-sm font-medium text-gray-700">Step 4: Symptoms</p>
+            <p class="text-xs text-gray-400">Symptom checklist</p>
+          </div>
+        </a>
+
+        <a href="A05A-checkin/A05A-S1-normal-checkin_step_5_summary.html" class="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md hover:border-sage/30 transition-all">
+          <div class="aspect-[9/16] overflow-hidden bg-gray-100">
+            <img src="A05A-checkin/A05A-S1-normal-checkin_step_5_summary.png" alt="Check-in Step 5" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"/>
+          </div>
+          <div class="p-3">
+            <p class="text-sm font-medium text-gray-700">Step 5: Summary</p>
+            <p class="text-xs text-gray-400">Check-in complete</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="text-center mt-8 pt-8 border-t border-gray-100 text-sm text-gray-400">
+      <p>FollowCare Patient Portal &mdash; Design prototypes for stakeholder review</p>
+    </div>
+  </div>
+</body>
+</html>
